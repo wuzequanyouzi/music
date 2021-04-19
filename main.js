@@ -6,15 +6,20 @@ const mode = process.argv[2];
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 1024,
+    minWidth: 1024,
     height: 670,
+    minHeight: 670,
     show: false,
     backgroundColor: '#ec4141',
+    autoHideMenuBar: true,  //  隐藏菜单栏
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true, // 是否启用节点集成
       webviewTag: true  // 是否启用<webview>标签
     }
   });
+
+  win.setThumbarButtons([]);
 
   //  判断是否开发模式
   if (mode === 'dev') {
