@@ -1,6 +1,7 @@
-import styles from './header.module.css';
+import styles from './header.module.scss';
 import { NavLink } from 'react-router-dom';
 import { Input } from 'antd';
+console.log(styles)
 const SearchIcon = () => (
   <i className={`iconfont icon-search ${styles.search_icon}`}></i>
 )
@@ -14,9 +15,9 @@ const Header = () => {
         </div>
         <div className={styles.search_box}>
           <div className={styles.search_input}>
-            <Input className={styles.input} prefix={<SearchIcon />}></Input>
+            <Input placeholder="搜索" className={styles.input} prefix={<SearchIcon />}></Input>
           </div>
-          <i className="iconfont icon-tinggeshiqu font_size_20"></i>
+          <i className={`iconfont icon-tinggeshiqu font_size_20 ${styles.listen_icon}`}></i>
         </div>
       </div>
       <div className={styles.right}></div>

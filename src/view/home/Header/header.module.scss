@@ -46,12 +46,22 @@
 
 .search_icon {
   font-size: 20px;
+  color: #FFF;
 }
 
 .input {
   background-color: #c73e3e !important;
   border-radius: 16px !important;
   border: none !important;
+  :global(.ant-input) {
+    background-color: transparent!important;
+    color: #FFF;
+  }
+}
+
+.listen_icon {
+  margin-left: 20px;
+  cursor: pointer;
 }
 
 .right {
