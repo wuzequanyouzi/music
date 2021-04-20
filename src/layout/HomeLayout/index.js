@@ -1,6 +1,6 @@
 import styles from './HomeLayout.module.css'
-import Header from '@/view/home/Header/index.js';
-import Container from '@/view/home/Container/index.js';
+import Header from '@/view/home/Header/Index.js';
+import Container from '@/view/home/Container/Index.js';
 const HomeLayout = (props) => {
   return (
     <div className={styles.home}>

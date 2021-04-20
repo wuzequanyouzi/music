@@ -3,6 +3,7 @@ import Menu from './Menu/Index.js';
 import styles from './container.module.css';
 const Container = (props) => {
   const { route } = props;
+  console.log(route.routes)
   return (
     <div className={styles.container}>
       <div className={styles.left}>

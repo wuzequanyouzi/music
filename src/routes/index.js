@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Redirect } from 'react-router-dom';
-import BlanlLayout from '@/layout/BlankLayout/index.js';
-import HomeLayout from '@/layout/HomeLayout';
+import BlanlLayout from '@/layout/BlankLayout/Index.js';
+import HomeLayout from '@/layout/HomeLayout/Index.js';
 
 const SuspenseComponent = Component => props => {
   return (
@@ -11,7 +11,7 @@ const SuspenseComponent = Component => props => {
   )
 };
 
-const Test = lazy(() => import('@/view/test/index.js'));
+const Test = lazy(() => import('@/view/test/Index.js'));
 
 const routes = [
   {
