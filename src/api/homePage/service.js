@@ -1,4 +1,4 @@
-import homepage from './api.js';
+import * as homepage from './api.js';
 
 export class HomePageService {
   static getDiscover() {

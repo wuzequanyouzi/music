@@ -1,4 +1,4 @@
-import privatecontent from './api.js';
+import * as privatecontent from './api.js';
 
 export class PrivatecontentService {
   static getPrivatecontent() {

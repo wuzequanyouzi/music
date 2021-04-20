@@ -1,4 +1,4 @@
-import recommend from './api.js';
+import * as recommend from './api.js';
 
 export class RecommendService {
   /**

@@ -1,5 +1,6 @@
 import styles from './Discover.module.scss';
 import { useState } from 'react';
+import { HomePageService } from '@/api/index.js';
 const HEADER_LIST = [
   {
     name: '个性推荐'
