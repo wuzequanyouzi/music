@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  height: 100%;
+}
+
+.left {
+  width: 200px;
+  border-right: 1px solid #ccc;
+}
+
+.right {
+  flex: 1;
+}

@@ -1,0 +1,55 @@
+.menu {
+  height: 100%;
+  padding-left: 10px;
+  user-select: none;
+}
+.plubic_menu {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.plubic_menu_item {
+  color: #333;
+  padding: 4px 8px;
+  margin-right: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: #ccc;
+  }
+}
+
+.plubic_menu_item_active {
+  color: #000;
+  font-weight: 600;
+  background-color: #eee;
+}
+
+.header {
+  color: #bbb;
+  padding-left: 8px;
+}
+
+.my_music {
+  display: flex;
+  flex-direction: column;
+  .container {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    margin: 6px 0;
+    .my_music_item {
+      padding: 8px 4px;
+      color: #333;
+      cursor: pointer;
+      &:hover {
+        background-color: #ccc;
+      }
+    }
+  }
+}
+.public_icon {
+  padding-right: 8px;
+}

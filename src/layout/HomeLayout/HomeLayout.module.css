@@ -4,13 +4,16 @@
   display: flex;
   flex-direction: column;
 }
+
 .header {
   justify-self: start;
   height: 60px;
 }
+
 .container {
   flex: 1;
 }
+
 .footer {
   height: 74px;
   justify-self: end;
