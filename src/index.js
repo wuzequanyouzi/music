@@ -3,14 +3,23 @@ import ReactDOM from 'react-dom';
 import { HashRouter } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
 import routes from "./routes/index.js";
+import state from './store/index.js';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import '@/assets/css/index.css';
+import '@/assets/iconfont/index.css';
+import 'antd/dist/antd.css';
 // import reportWebVitals from './reportWebVitals';
+
+const store = createStore(state);
 
 ReactDOM.render(
   <React.StrictMode>
-    <HashRouter>
-      {renderRoutes(routes)}
-    </HashRouter>
+    <Provider store={store}>
+      <HashRouter>
+        {renderRoutes(routes)}
+      </HashRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
