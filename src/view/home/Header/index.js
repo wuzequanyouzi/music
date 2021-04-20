@@ -20,7 +20,16 @@ const Header = () => {
           <i className={`iconfont icon-tinggeshiqu font_size_20 ${styles.listen_icon}`}></i>
         </div>
       </div>
-      <div className={styles.right}></div>
+      <div className={styles.right}>
+        <div>
+          未登录
+        </div>
+        <div className={styles.system_option}>
+          <i className={`iconfont icon-suoxiao`} style={{ fontSize: '20px', cursor: 'pointer' }}></i>
+          <i className={`iconfont icon-suofang`} style={{ fontSize: '20px', cursor: 'pointer' }}></i>
+          <i className={`iconfont icon-guanbi`} style={{ fontSize: '18px', cursor: 'pointer' }}></i>
+        </div>
+      </div>
     </div>
   )
 }
