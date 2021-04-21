@@ -1,6 +1,4 @@
 import React, { lazy, Suspense } from 'react';
-import { Redirect } from 'react-router-dom';
-import BlanlLayout from '@/layout/BlankLayout/Index.js';
 import HomeLayout from '@/layout/HomeLayout/Index.js';
 
 const SuspenseComponent = Component => props => {
@@ -16,24 +14,20 @@ const Login = lazy(() => import('@/view/login/Index.js'));
 
 const routes = [
   {
-    component: BlanlLayout,
-    routes: [
+    path: '/',
+    redirect: '/home'
+  },
+  {
+    path: '/home',
+    component: HomeLayout,
+    children: [
       {
-        path: '/',
-        component: HomeLayout,
-        routes: [
-          {
-            path: '/test',
-            component: SuspenseComponent(Test)
-          }
-        ]
-      },
-      {
-        path: '/login',
-        component: SuspenseComponent(Login)
+        path: '/test',
+        layout: HomeLayout,
+        component: SuspenseComponent(Test)
       }
     ]
   }
-];
+]
 
 export default routes;

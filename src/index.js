@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter } from "react-router-dom";
-import { renderRoutes } from "react-router-config";
-import routes from "./routes/index.js";
-import state from './store/index.js';
+import { BrowserRouter } from "react-router-dom";
+import { Switch, Route, Redirect } from 'react-router';
+import routes from "@/routes/index.js";
+import state from '@/store/index.js';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import '@/assets/css/index.css';
@@ -13,12 +13,53 @@ import 'antd/dist/antd.css';
 
 const store = createStore(state);
 
+const getRouterByRouters = (routes) => {
+  const renderedRoutesList = [];
+  const renderRoutes = (routes, parentPath) => {
+    Array.isArray(routes) && routes.forEach((route) => {
+      const { path, redirect, children, layout, component } = route;
+      if (redirect) {
+        renderedRoutesList.push(
+          <Redirect
+            key={`${parentPath}${path}`}
+            exact
+            from={path}
+            to={`${parentPath}${redirect}`}
+          />
+        )
+      }
+      if (component) {
+        renderedRoutesList.push(
+          layout?<Route 
+            key={`${parentPath}${path}`} 
+            exact path={`${parentPath}${path}`}
+            render={(props)=>React.createElement(layout,props,React.createElement(component,props))} />:
+          <Route
+            key={`${parentPath}${path}`}
+            exact
+            path={`${parentPath}${path}`}
+            component={component}
+          />
+        )
+      }
+      if (Array.isArray(children) && children.length > 0) {
+        renderRoutes(children, path);
+      }
+    });
+  }
+  renderRoutes(routes, '');
+  console.log(renderedRoutesList);
+  return renderedRoutesList;
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <HashRouter>
-        {renderRoutes(routes)}
-      </HashRouter>
+      <BrowserRouter>
+        <Switch>
+          {getRouterByRouters(routes)}
+        </Switch>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
