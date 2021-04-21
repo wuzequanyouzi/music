@@ -1,7 +1,7 @@
 import {
-  getRequest,
-  personalizedUrl
+  getRequest
 } from '../index.js';
+import { personalizedUrl } from '@/config/url.js';
 
 const url = `${personalizedUrl}/privatecontent`;
 

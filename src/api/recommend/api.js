@@ -1,8 +1,10 @@
 import {
-  getRequest,
+  getRequest
+} from '../index.js';
+import {
   personalizedUrl,
   programUrl
-} from '../index.js';
+} from '@/config/url.js';
 
 // 新音乐推荐
 const newSongUrl = `${personalizedUrl}/newsong`;

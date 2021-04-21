@@ -1,4 +1,4 @@
-'use strict';
+
 
 const path = require('path');
 const fs = require('fs');
@@ -57,7 +57,9 @@ module.exports = {
   appBuild: resolveApp(buildPath),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
+  appLoginHtml: resolveApp('public/login.html'),
   appIndexJs: resolveModule(resolveApp, 'src/index'),
+  appLoginJs: resolveModule(resolveApp, 'src/view/login/Index'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   appTsConfig: resolveApp('tsconfig.json'),

@@ -169,9 +169,14 @@ module.exports = function (webpackEnv) {
       : isEnvDevelopment && 'cheap-module-source-map',
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS bundle.
-    entry:
+    entry: {
+      index: [paths.appIndexJs, isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient')].filter(Boolean),
+      login: [paths.appLoginJs, isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient')].filter(Boolean)
+    },
+    /*
       isEnvDevelopment && !shouldUseReactRefresh
-        ? [
+        ?
+        [
           // Include an alternative client for WebpackDevServer. A client's job is to
           // connect to WebpackDevServer by a socket and get notified about changes.
           // When you save a file, the client will either apply hot updates (in case
@@ -193,7 +198,13 @@ module.exports = function (webpackEnv) {
           // initialization, it doesn't blow up the WebpackDevServer client, and
           // changing JS code would still trigger a refresh.
         ]
-        : paths.appIndexJs,
+        // : paths.appIndexJs,
+        :
+        {
+          index: [paths.appIndexJs, isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient')].filter(Boolean),
+          login: [paths.appLoginJs, isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient')].filter(Boolean)
+        },
+        */
     output: {
       // The build folder.
       path: isEnvProduction ? paths.appBuild : undefined,
@@ -203,7 +214,8 @@ module.exports = function (webpackEnv) {
       // In development, it does not produce real files.
       filename: isEnvProduction
         ? 'static/js/[name].[contenthash:8].js'
-        : isEnvDevelopment && 'static/js/bundle.js',
+        // : isEnvDevelopment && 'static/js/bundle.js',
+        : isEnvDevelopment && 'static/js/[name].bundle.js',
       // TODO: remove this when upgrading to webpack 5
       futureEmitAssets: true,
       // There are also additional JS chunk files if you use code splitting.
@@ -565,6 +577,35 @@ module.exports = function (webpackEnv) {
           {
             inject: true,
             template: paths.appHtml,
+            filename: 'index.html',
+            chunks: ['index']
+          },
+          isEnvProduction
+            ? {
+              minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeRedundantAttributes: true,
+                useShortDoctype: true,
+                removeEmptyAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                keepClosingSlash: true,
+                minifyJS: true,
+                minifyCSS: true,
+                minifyURLs: true,
+              },
+            }
+            : undefined
+        )
+      ),
+      new HtmlWebpackPlugin(
+        Object.assign(
+          {},
+          {
+            inject: true,
+            template: paths.appLoginHtml,
+            filename: 'login.html',
+            chunks: ['login']
           },
           isEnvProduction
             ? {
@@ -653,7 +694,11 @@ module.exports = function (webpackEnv) {
             manifest[file.name] = file.path;
             return manifest;
           }, seed);
-          const entrypointFiles = entrypoints.main.filter(
+          // const entrypointFiles = entrypoints.main.filter(
+          //   fileName => !fileName.endsWith('.map')
+          // );
+
+          const entrypointFiles = entrypoints.index.filter(
             fileName => !fileName.endsWith('.map')
           );
 

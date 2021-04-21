@@ -12,6 +12,7 @@ const SuspenseComponent = Component => props => {
 };
 
 const Test = lazy(() => import('@/view/test/Index.js'));
+const Login = lazy(() => import('@/view/login/Index.js'));
 
 const routes = [
   {
@@ -26,6 +27,10 @@ const routes = [
             component: SuspenseComponent(Test)
           }
         ]
+      },
+      {
+        path: '/login',
+        component: SuspenseComponent(Login)
       }
     ]
   }

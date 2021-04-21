@@ -1,9 +1,8 @@
 import {
-  getRequest,
-  homePageUrl
-} from '@/api/index.js';
+  getRequest
+} from '../index.js';
 
-console.log(homePageUrl);
+import { homePageUrl } from '@/config/url.js';
 
 const url = `${homePageUrl}/block`;
 

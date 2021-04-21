@@ -26,12 +26,17 @@ const Discover = (props) => {
   const handleClickHeaderItem = (headerItem) => {
     setActiveHeaderItem(headerItem.name);
   };
+  HomePageService.getDiscover()
+    .then(data => {
+      console.log(data);
+    })
   return (
     <div className={styles.discover}>
       <header className={styles.header}>
         {
           HEADER_LIST.map(headerItem => (
             <p
+              key={headerItem.name}
               className={`${styles.header_item} ${activeHeaderItem === headerItem.name ? styles.active_header_item : ''}`}
               onClick={() => handleClickHeaderItem(headerItem)}
             >{headerItem.name}</p>

@@ -7,7 +7,7 @@ myaxios.defaults.timeout = 5 * 60 * 1000;
 /* 请求拦截 */
 myaxios.interceptors.request.use(
   successRequestInterceptor,
-  function(error) {
+  function (error) {
     // Do something with request error
     return Promise.reject(error);
   }
@@ -15,18 +15,6 @@ myaxios.interceptors.request.use(
 
 /* 响应拦截 */
 myaxios.interceptors.response.use(successReponseInterceptor, errResponseInterceptor);
-
-// 服务入口
-export const baseUrl = 'https://music-cloud-node-api.vercel.app';
-
-// 首页推荐
-export const homePageUrl = `${baseUrl}/homepage`;
-
-// 个性化服务
-export const personalizedUrl = `${baseUrl}/personalized`;
-
-// program
-export const programUrl = `${baseUrl}/program`;
 
 export const getRequest = (url, params) => {
   return myaxios({
