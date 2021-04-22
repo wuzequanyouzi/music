@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import { Switch, Route, Redirect } from 'react-router';
 import routes from "@/routes/index.js";
 import state from '@/store/index.js';
@@ -30,16 +30,16 @@ const getRouterByRouters = (routes) => {
       }
       if (component) {
         renderedRoutesList.push(
-          layout?<Route 
-            key={`${parentPath}${path}`} 
-            exact path={`${parentPath}${path}`}
-            render={(props)=>React.createElement(layout,props,React.createElement(component,props))} />:
-          <Route
+          layout ? <Route
             key={`${parentPath}${path}`}
-            exact
-            path={`${parentPath}${path}`}
-            component={component}
-          />
+            exact path={`${parentPath}${path}`}
+            render={(props) => React.createElement(layout, props, React.createElement(component, props))} /> :
+            <Route
+              key={`${parentPath}${path}`}
+              exact
+              path={`${parentPath}${path}`}
+              component={component}
+            />
         )
       }
       if (Array.isArray(children) && children.length > 0) {
@@ -55,11 +55,11 @@ const getRouterByRouters = (routes) => {
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <Switch>
           {getRouterByRouters(routes)}
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

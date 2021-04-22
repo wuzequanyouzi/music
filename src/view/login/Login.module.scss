@@ -1,0 +1,12 @@
+.login {
+  -webkit-app-region: drag;
+  position: relative;
+}
+.close {
+  -webkit-app-region: no-drag;
+  user-select: none;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}

@@ -1,4 +1,5 @@
-const { app, BrowserWindow } = require('electron');
+const { createLoginWindow } = require('./electron/index');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
 const mode = process.argv[2];
@@ -9,17 +10,21 @@ const createWindow = () => {
     minWidth: 1024,
     height: 670,
     minHeight: 670,
+    frame: false, // 无边框
     show: false,
     backgroundColor: '#ec4141',
     autoHideMenuBar: true,  //  隐藏菜单栏
     webPreferences: {
+      javascript: true,
+      plugins: true,
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true, // 是否启用节点集成
-      webviewTag: true  // 是否启用<webview>标签
+      nodeIntegration: true, // 是否启用Node集成
+      webSecurity: false,
+      // webviewTag: true  // 是否启用<webview>标签
+      enableRemoteModule: true,
+      contextIsolation: false
     }
   });
-
-  win.setThumbarButtons([]);
 
   //  判断是否开发模式
   if (mode === 'dev') {
@@ -31,11 +36,23 @@ const createWindow = () => {
       slashes: true
     }))
   }
-  win.webContents.on("did-finish-load", () => {
 
+  let loginWindow = null;
+
+  ipcMain.on('login-before', (event, ...args) => {
+    if (!loginWindow) {
+      loginWindow = createLoginWindow(win);
+    }
+  });
+
+  ipcMain.on('login-window-close', (event, arg) => {
+    loginWindow.close();
+    loginWindow = null;
+  });
+
+  win.webContents.on("did-finish-load", () => {
   })
   win.webContents.on('dom-ready', () => {
-
   })
   win.once('ready-to-show', () => {
     win.show();

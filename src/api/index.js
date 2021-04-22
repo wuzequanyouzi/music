@@ -24,6 +24,18 @@ export const getRequest = (url, params) => {
   });
 };
 
+export const postRequest = (url, params) => {
+  return myaxios({
+    method: 'post',
+    url: `${url}`,
+    params,
+    headers: {
+      'Content-Type': 'application/json;'
+    }
+  });
+};
+
+
 // 首页
 export { HomePageService } from './homePage/service';
 
@@ -32,3 +44,6 @@ export { PrivatecontentService } from './privatecontent/service';
 
 // 推荐
 export { RecommendService } from './recommend/service';
+
+// 登录
+export { LoginService } from './login/service';

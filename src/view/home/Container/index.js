@@ -10,7 +10,7 @@ const Container = (props) => {
         <Menu />
       </div>
       <div className={styles.right}>
-        { children }
+        {children}
       </div>
     </div>
   )

@@ -6,6 +6,7 @@
   align-items: center;
   background-color: #ec4141;
   color: #fff;
+  -webkit-app-region: drag;
 }
 
 .logo {
@@ -32,6 +33,7 @@
 .left > .title {
   display: flex;
   align-items: center;
+  -webkit-app-region: no-drag;
 }
 
 .label {
@@ -42,6 +44,7 @@
 
 .search_box {
   display: flex;
+  -webkit-app-region: no-drag;
 }
 
 .search_icon {
@@ -72,6 +75,17 @@
   justify-content: space-between;
 }
 
+.user_option {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+  .user_avatar {
+    margin-right: 10px;
+  }
+}
+
 .system_option {
   width: 200px;
   height: 22px;
@@ -79,4 +93,5 @@
   justify-content: space-evenly;
   align-items: center;
   border-left: 1px solid #fff;
+  -webkit-app-region: no-drag;
 }
