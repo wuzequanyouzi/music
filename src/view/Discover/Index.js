@@ -1,5 +1,13 @@
+// 依赖
+import { useState, useEffect } from 'react';
+
+// 组件
+import Carousel from '@/components/others/Carousel/Index.js';
+
+// 样式or图片
 import styles from './Discover.module.scss';
-import { useState } from 'react';
+
+// js
 import { HomePageService } from '@/api/index.js';
 const HEADER_LIST = [
   {
@@ -26,10 +34,21 @@ const Discover = (props) => {
   const handleClickHeaderItem = (headerItem) => {
     setActiveHeaderItem(headerItem.name);
   };
-  HomePageService.getDiscover()
-    .then(data => {
-      console.log(data);
-    })
+
+  // 轮播图列表
+  const [carouselImages, setCarouselImages] = useState([]);
+  const [isLoading, setisLoading] = useState(true);
+
+  useEffect(() => {
+    setisLoading(false);
+    HomePageService.getDiscover()
+      .then(data => {
+        const images = data.blocks[0]?.extInfo?.banners || [];
+        setCarouselImages(images);
+      })
+  }, [isLoading]);
+
+  window.setCarouselImages = setCarouselImages;
   return (
     <div className={styles.discover}>
       <header className={styles.header}>
@@ -43,6 +62,9 @@ const Discover = (props) => {
           ))
         }
       </header>
+      <div className={styles.container}>
+        <Carousel imageList={carouselImages} />
+      </div>
     </div>
   )
 };

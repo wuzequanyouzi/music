@@ -6,6 +6,7 @@ import routes from "@/routes/index.js";
 import state from '@/store/index.js';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+
 import '@/assets/css/index.css';
 import '@/assets/iconfont/index.css';
 import 'antd/dist/antd.css';
@@ -50,6 +51,9 @@ const getRouterByRouters = (routes) => {
   renderRoutes(routes, '');
   return renderedRoutesList;
 }
+
+window.store = store;
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

@@ -48,7 +48,7 @@ const createWindow = () => {
 
   // 登陆后，拿到数据
   ipcMain.on('login-after', (event, userInfo) => {
-    console.log(userInfo.loginType);
+    // console.log(userInfo.loginType);
     // 发给首页
     win.webContents.send('login-after-reply', userInfo);
   });
@@ -56,7 +56,6 @@ const createWindow = () => {
   ipcMain.on('login-window-close', (event, arg) => {
     loginWindow.close();
     loginWindow = null;
-    console.log('123');
   });
 
   win.webContents.on("did-finish-load", () => {

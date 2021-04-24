@@ -30,12 +30,10 @@ const Login = () => {
   };
 
   const handleClickLogin = () => {
-    console.log(username, password)
     LoginService.phoneLogin({
       phone: username,
       md5_password: md5(password)
     }).then(data => {
-      console.log(data);
       ipcRenderer.send('login-after', data);
       // handleClickClose();
     })

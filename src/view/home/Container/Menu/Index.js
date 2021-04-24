@@ -7,7 +7,6 @@ const Menu = (props) => {
 
   // 单击菜单事件
   const handleClickMenuItem = (menuItem) => {
-    console.log(menuItem);
     setActiveMenuItem(menuItem);
   }
   const {

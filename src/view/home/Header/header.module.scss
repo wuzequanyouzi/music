@@ -84,6 +84,14 @@
   .user_avatar {
     margin-right: 10px;
   }
+  .nickname {
+    width: 90px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 14px;
+    color: #ddd;
+  }
 }
 
 .system_option {
