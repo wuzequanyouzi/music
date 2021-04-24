@@ -32,7 +32,7 @@ const removePendingRequest = (reqId) => {
  */
 export const successReponseInterceptor = axiosResponse => {
   const { data: { code, result, data } } = axiosResponse;
-  const resultData = result || data;
+  const resultData = result || data || axiosResponse.data;
   if (code === SUCCESS_CODE) {
     return resultData;
   }

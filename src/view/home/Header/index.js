@@ -7,10 +7,18 @@ const SearchIcon = () => (
   <i className={`iconfont icon-search ${styles.search_icon}`}></i>
 )
 
-const Header = () => {
+const Header = (props) => {
+
+  const { store } = props;
 
   ipcRenderer.on('login-after', (event, ...args) => {
     console.log(event, args);
+  });
+
+  // 监听登录成功
+  ipcRenderer.on('login-after-reply', (event, userInfo) => {
+    console.log(store)
+    console.log(userInfo)
   });
 
   const handleClickLogin = () => {

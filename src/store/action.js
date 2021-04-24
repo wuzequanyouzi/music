@@ -4,3 +4,10 @@ export const USER_NAME_ACTION = (name) => {
     name
   }
 };
+
+export const LOGIN_INFO_ACTION = (loginInfo) => {
+  return {
+    type: 'LOGIN_INFO',
+    loginInfo
+  }
+};

@@ -39,15 +39,24 @@ const createWindow = () => {
 
   let loginWindow = null;
 
+  // 登录前
   ipcMain.on('login-before', (event, ...args) => {
     if (!loginWindow) {
       loginWindow = createLoginWindow(win);
     }
   });
 
+  // 登陆后，拿到数据
+  ipcMain.on('login-after', (event, userInfo) => {
+    console.log(userInfo.loginType);
+    // 发给首页
+    win.webContents.send('login-after-reply', userInfo);
+  });
+
   ipcMain.on('login-window-close', (event, arg) => {
     loginWindow.close();
     loginWindow = null;
+    console.log('123');
   });
 
   win.webContents.on("did-finish-load", () => {

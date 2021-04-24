@@ -48,10 +48,8 @@ const getRouterByRouters = (routes) => {
     });
   }
   renderRoutes(routes, '');
-  console.log(renderedRoutesList);
   return renderedRoutesList;
 }
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
