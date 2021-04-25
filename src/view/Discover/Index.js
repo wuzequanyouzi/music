@@ -39,16 +39,16 @@ const Discover = (props) => {
   const [carouselImages, setCarouselImages] = useState([]);
   const [isLoading, setisLoading] = useState(true);
 
+  window.carouselImages = carouselImages;
   useEffect(() => {
     setisLoading(false);
     HomePageService.getDiscover()
       .then(data => {
         const images = data.blocks[0]?.extInfo?.banners || [];
-        setCarouselImages(images);
+        setCarouselImages([...images]);
       })
   }, [isLoading]);
 
-  window.setCarouselImages = setCarouselImages;
   return (
     <div className={styles.discover}>
       <header className={styles.header}>

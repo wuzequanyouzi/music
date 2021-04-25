@@ -2,7 +2,7 @@
  * @description: 一个轮播图组件，思路是通过变换类名和数组元素达到轮播的效果
  * @author: 柚子
  */
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 
 // 样式 图片
 import styles from './Carousel.module.scss';
@@ -17,66 +17,93 @@ import img8 from '@/assets/images/8.jpg';
 import img9 from '@/assets/images/9.jpg';
 import img10 from '@/assets/images/10.jpg';
 
-let imageList = [
-  {
-    pic: img1
-  },
-  {
-    pic: img2
-  },
-  {
-    pic: img3
-  },
-  {
-    pic: img4
-  },
-  {
-    pic: img5
-  },
-  {
-    pic: img6
-  },
-  {
-    pic: img7
-  },
-  {
-    pic: img8
-  },
-  {
-    pic: img9
-  },
-  {
-    pic: img10
-  }
-]
+// let imageList = [
+//   {
+//     pic: img1
+//   },
+//   {
+//     pic: img2
+//   },
+//   {
+//     pic: img3
+//   },
+//   {
+//     pic: img4
+//   },
+//   {
+//     pic: img5
+//   },
+//   {
+//     pic: img6
+//   },
+//   {
+//     pic: img7
+//   },
+//   {
+//     pic: img8
+//   },
+//   {
+//     pic: img9
+//   },
+//   {
+//     pic: img10
+//   }
+// ]
+let autoplayAnimationFramer = null;
+let autoPlayIndex = 0;
 
 const Carousel = (props) => {
 
   const {
-    // imageList = []，
+    imageList = [],
     autoplay = false,
     delayTime = 2000,
     isShowDots = true
   } = props;
 
-  const [lastIndex, setLastIndex] = useState(0);
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const [nextIndex, setNextIndex] = useState(2);
-  const [recordIndex, setRecordIndex] = useState(0);
-  const [carouselImages, setCarouselImages] = useState([]);
-  const [switching, setSwitching] = useState(false);
-  // const [autoplayAnimationFramer, setAutoplayAnimationFramer] = useState(null);
-  let autoplayAnimationFramer = null;
+  // 轮播图源数组
+  const [orgImages, setOrgImages] = useState(imageList);
 
-  let lastTime = Date.now();
-  let autoPlayIndex = 0;
+  // 轮播数组上一张图索引
+  const [lastIndex, setLastIndex] = useState(0);
+
+  // 轮播数组当前图索引
+  const [currentIndex, setCurrentIndex] = useState(1);
+
+  // 轮播数组下一张图索引
+  const [nextIndex, setNextIndex] = useState(2);
+
+  // 记录索引
+  const [recordIndex, setRecordIndex] = useState(0);
+
+  // 轮播数组数据
+  const [carouselImages, setCarouselImages] = useState([]);
+  window.carouselImages = carouselImages;
+
+  // 转换过程标识
+  const [switching, setSwitching] = useState(false);
+
+  const savedCallback = useRef();
 
   useEffect(() => {
-    setCarouselImages([...imageList.slice(-1), ...imageList.slice(0, 4)]);
+    setOrgImages(imageList);
   }, [imageList]);
 
+  useEffect(() => {
+    setCarouselImages([...orgImages.slice(-1), ...orgImages.slice(0, 4)]);
+  }, [orgImages]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      carouselImages.length >= 5 && autoplay && autoPlay();
+    }, 1000)
+    return () => {
+      cancelAutoPlay();
+    };
+  }, [carouselImages.length])
+
   // 等差值
-  const diffValue = imageList.length - 2;
+  const diffValue = orgImages.length - 2;
 
   // 判断下标
   const switchClass = (index) => {
@@ -144,14 +171,14 @@ const Carousel = (props) => {
   // 根据当前选中的索引重新生成轮播数组
   const recalculation = (currentImageIndex) => {
     const indexs = [
-      (currentImageIndex + diffValue) % imageList.length,
-      (currentImageIndex + diffValue + 1) % imageList.length,
+      (currentImageIndex + diffValue) % orgImages.length,
+      (currentImageIndex + diffValue + 1) % orgImages.length,
       currentImageIndex,
-      (currentImageIndex + 1) % imageList.length,
-      (currentImageIndex + 2) % imageList.length
+      (currentImageIndex + 1) % orgImages.length,
+      (currentImageIndex + 2) % orgImages.length
     ];
     const resultArr = indexs.map(index => {
-      return imageList[index];
+      return orgImages[index];
     })
     setCarouselImages(resultArr);
   };
@@ -160,7 +187,6 @@ const Carousel = (props) => {
   const handleClickImageItem = (_curIndex) => {
     if (_curIndex === recordIndex) return;
     const difference = _curIndex - recordIndex;
-    console.log(_curIndex, recordIndex, difference);
     setSwitching(false);
     let _lastIndex = lastIndex;
     let _currentIndex = currentIndex;
@@ -168,10 +194,10 @@ const Carousel = (props) => {
 
     let mainContainers = carouselImages.slice();
 
-    if (Math.abs(difference) > 1 && Math.abs(difference) < imageList.length - 1) {
+    if (Math.abs(difference) > 1 && Math.abs(difference) < orgImages.length - 1) {
       setSwitching(true);
       // 记录索引
-      setRecordIndex(_curIndex);
+      setRecordIndex(() => _curIndex);
       setTimeout(() => {
 
         // 重置轮播数组
@@ -186,12 +212,12 @@ const Carousel = (props) => {
         setSwitching(false);
       }, 350);
     } else {
-      if (difference === 1 || difference === -(imageList.length - 1)) {
+      if (difference === 1 || difference === -(orgImages.length - 1)) {
         const indexsObj = computedNextIndexs(currentIndex);
         _lastIndex = indexsObj._lastIndex;
         _currentIndex = indexsObj._currentIndex;
         _nextIndex = indexsObj._nextIndex;
-      } else if (difference === -1 || difference === (imageList.length - 1)) {
+      } else if (difference === -1 || difference === (orgImages.length - 1)) {
         const indexsObj = computedLastIndexs(currentIndex);
         _lastIndex = indexsObj._lastIndex;
         _currentIndex = indexsObj._currentIndex;
@@ -200,14 +226,14 @@ const Carousel = (props) => {
 
       /* 计算下标 */
       // 隐藏的上一张图片在原数组中的下标
-      const afterOneRemainder = (_curIndex + diffValue) % imageList.length;
+      const afterOneRemainder = (_curIndex + diffValue) % orgImages.length;
       // 隐藏的上一张图片
-      const afterOneImage = imageList[afterOneRemainder];
+      const afterOneImage = orgImages[afterOneRemainder];
 
       // 隐藏的下一张图片在原数组中的下标
-      const afterTwoRemainder = (_curIndex + 2) % imageList.length;
+      const afterTwoRemainder = (_curIndex + 2) % orgImages.length;
       // 隐藏的下一张图片
-      const afterTwoImage = imageList[afterTwoRemainder];
+      const afterTwoImage = orgImages[afterTwoRemainder];
 
       // 替换轮播数组中隐藏的图片
       if (_lastIndex - 1 < 0) {
@@ -222,7 +248,7 @@ const Carousel = (props) => {
       }
 
       setCarouselImages(mainContainers)
-      setRecordIndex(_curIndex);
+      setRecordIndex(() => _curIndex);
       setLastIndex(_lastIndex);
       setCurrentIndex(_currentIndex);
       setNextIndex(_nextIndex);
@@ -231,27 +257,22 @@ const Carousel = (props) => {
 
   // 自动轮播回调
   const animationFrameCallback = () => {
-    autoPlayIndex = (autoPlayIndex + 1) % imageList.length;
+    autoPlayIndex = (autoPlayIndex + 1) % orgImages.length;
     handleClickImageItem(autoPlayIndex);
-  }
+  };
+  // savedCallback是一个useRef，每次渲染都会返回同一个Ref对象，所以current内部的数据是已经更新完成的。
+  savedCallback.current = animationFrameCallback;
 
   // 自动轮播
   const autoPlay = () => {
     cancelAutoPlay();
-    autoplayAnimationFramer = setInterval(animationFrameCallback, delayTime);
+    autoplayAnimationFramer = setInterval(() => {savedCallback.current();}, delayTime);
   };
 
   // 取消轮播
   const cancelAutoPlay = () => {
     autoplayAnimationFramer && clearInterval(autoplayAnimationFramer);
   };
-
-  useEffect(() => {
-    autoplay && autoPlay();
-    return () => {
-      cancelAutoPlay();
-    };
-  }, []);
 
   // 鼠标进入元素的事件回调
   const mouseEnterHandler = () => {
@@ -265,8 +286,6 @@ const Carousel = (props) => {
     autoplay && autoPlay();
   };
 
-
-  window.handleClickImageItem = handleClickImageItem;
   return (
     <div className={styles.carousel}>
       <div className={styles.carousel_container} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
@@ -282,7 +301,7 @@ const Carousel = (props) => {
         isShowDots
           ? <div className={styles.footer}>
             {
-              imageList.map((imageInfo, index) => {
+              orgImages.map((imageInfo, index) => {
                 return (
                   <div
                     key={index}
