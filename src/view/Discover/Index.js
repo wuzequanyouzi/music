@@ -63,7 +63,7 @@ const Discover = (props) => {
         }
       </header>
       <div className={styles.container}>
-        <Carousel imageList={carouselImages} />
+        <Carousel autoplay={true} imageList={carouselImages} />
       </div>
     </div>
   )
