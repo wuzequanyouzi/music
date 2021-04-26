@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import HomeLayout from '@/layout/HomeLayout/Index.js';
+// import HomeLayout from '@/layout/HomeLayout/Index.js';
 
 const SuspenseComponent = Component => props => {
   return (
@@ -15,18 +15,23 @@ const Login = lazy(() => import('@/view/login/Index.js'));
 const routes = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/test'
   },
+  // {
+  //   path: '/home',
+  //   component: HomeLayout,
+  //   children: [
+  //     {
+  //       path: '/test',
+  //       layout: HomeLayout,
+  //       component: SuspenseComponent(Test)
+  //     }
+  //   ]
+  // },
   {
-    path: '/home',
-    component: HomeLayout,
-    children: [
-      {
-        path: '/test',
-        layout: HomeLayout,
-        component: SuspenseComponent(Test)
-      }
-    ]
+    path: '/test',
+    // layout: HomeLayout,
+    component: SuspenseComponent(Test)
   }
 ]
 

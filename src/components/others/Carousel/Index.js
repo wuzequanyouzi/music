@@ -2,7 +2,7 @@
  * @description: 一个轮播图组件，思路是通过变换类名和数组元素达到轮播的效果
  * @author: 柚子
  */
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 // 样式 图片
 import styles from './Carousel.module.scss';
@@ -17,45 +17,45 @@ import img8 from '@/assets/images/8.jpg';
 import img9 from '@/assets/images/9.jpg';
 import img10 from '@/assets/images/10.jpg';
 
-// let imageList = [
-//   {
-//     pic: img1
-//   },
-//   {
-//     pic: img2
-//   },
-//   {
-//     pic: img3
-//   },
-//   {
-//     pic: img4
-//   },
-//   {
-//     pic: img5
-//   },
-//   {
-//     pic: img6
-//   },
-//   {
-//     pic: img7
-//   },
-//   {
-//     pic: img8
-//   },
-//   {
-//     pic: img9
-//   },
-//   {
-//     pic: img10
-//   }
-// ]
+let imageList = [
+  {
+    pic: img1
+  },
+  {
+    pic: img2
+  },
+  {
+    pic: img3
+  },
+  {
+    pic: img4
+  },
+  {
+    pic: img5
+  },
+  {
+    pic: img6
+  },
+  {
+    pic: img7
+  },
+  {
+    pic: img8
+  },
+  {
+    pic: img9
+  },
+  {
+    pic: img10
+  }
+]
 let autoplayAnimationFramer = null;
 let autoPlayIndex = 0;
 
 const Carousel = (props) => {
 
   const {
-    imageList = [],
+    // imageList = [],
     autoplay = false,
     delayTime = 2000,
     isShowDots = true
@@ -78,7 +78,6 @@ const Carousel = (props) => {
 
   // 轮播数组数据
   const [carouselImages, setCarouselImages] = useState([]);
-  window.carouselImages = carouselImages;
 
   // 转换过程标识
   const [switching, setSwitching] = useState(false);
@@ -266,7 +265,7 @@ const Carousel = (props) => {
   // 自动轮播
   const autoPlay = () => {
     cancelAutoPlay();
-    autoplayAnimationFramer = setInterval(() => {savedCallback.current();}, delayTime);
+    autoplayAnimationFramer = setInterval(() => { savedCallback.current(); }, delayTime);
   };
 
   // 取消轮播
