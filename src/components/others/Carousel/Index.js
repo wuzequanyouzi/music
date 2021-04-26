@@ -58,7 +58,8 @@ const Carousel = (props) => {
     // imageList = [],
     autoplay = false,
     delayTime = 2000,
-    isShowDots = true
+    isShowDots = true,
+    className
   } = props;
 
   // 轮播图源数组
@@ -170,10 +171,10 @@ const Carousel = (props) => {
   // 根据当前选中的索引重新生成轮播数组
   const recalculation = (currentImageIndex) => {
     const indexs = [
-      (currentImageIndex + diffValue) % orgImages.length,
       (currentImageIndex + diffValue + 1) % orgImages.length,
       currentImageIndex,
       (currentImageIndex + 1) % orgImages.length,
+      (currentImageIndex + diffValue) % orgImages.length,
       (currentImageIndex + 2) % orgImages.length
     ];
     const resultArr = indexs.map(index => {
@@ -203,9 +204,9 @@ const Carousel = (props) => {
         recalculation(_curIndex);
 
         // 重置轮播指针
-        setLastIndex(1);
-        setCurrentIndex(2);
-        setNextIndex(3);
+        setCurrentIndex(1);
+        setLastIndex(0);
+        setNextIndex(2);
 
         // 动画复原
         setSwitching(false);
@@ -248,8 +249,8 @@ const Carousel = (props) => {
 
       setCarouselImages(mainContainers)
       setRecordIndex(() => _curIndex);
-      setLastIndex(_lastIndex);
       setCurrentIndex(_currentIndex);
+      setLastIndex(_lastIndex);
       setNextIndex(_nextIndex);
     }
   };
@@ -286,7 +287,7 @@ const Carousel = (props) => {
   };
 
   return (
-    <div className={styles.carousel}>
+    <div className={`${styles.carousel} ${className}`}>
       <div className={styles.carousel_container} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
         {
           carouselImages.map((image, index) => {

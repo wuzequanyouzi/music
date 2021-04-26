@@ -1,6 +1,6 @@
 // import { renderRoutes } from 'react-router-config';
 import Menu from './Menu/Index.js';
-import styles from './container.module.css';
+import styles from './container.module.scss';
 const Container = (props) => {
   const { children } = props;
   return (

@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 
 // 组件
 import Carousel from '@/components/others/Carousel/Index.js';
+import ImageCard from '@/components/others/ImageCard/Index.js';
+import ModuleCard from '@/components/others/ModuleCard/Index.js';
 
 // 样式or图片
 import styles from './Discover.module.scss';
@@ -63,7 +65,21 @@ const Discover = (props) => {
         }
       </header>
       <div className={styles.container}>
-        <Carousel autoplay={false} imageList={carouselImages} />
+        <Carousel className={styles.carousel} autoplay={true} delayTime={4000} imageList={carouselImages} />
+        {/* 推荐 */}
+        <ModuleCard >
+          <div className={styles.image_box}>
+            {
+              [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(item => {
+                return (
+                  <div key={item} className={styles.image}>
+                    <ImageCard />
+                  </div>
+                )
+              })
+            }
+          </div>
+        </ModuleCard>
       </div>
     </div>
   )

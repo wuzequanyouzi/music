@@ -3,7 +3,7 @@ import styles from './Menu.module.scss';
 const Menu = (props) => {
 
   // 选中的菜单项
-  const [activeMenuItem, setActiveMenuItem] = useState('');
+  const [activeMenuItem, setActiveMenuItem] = useState('发现音乐');
 
   // 单击菜单事件
   const handleClickMenuItem = (menuItem) => {
@@ -12,7 +12,8 @@ const Menu = (props) => {
   const {
     menu = [
       {
-        name: '发现音乐'
+        name: '发现音乐',
+        path: '/home'
       },
       {
         name: '视频'

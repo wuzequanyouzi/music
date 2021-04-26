@@ -1,6 +1,19 @@
 .test {
   width: 200px;
 }
-.image {
+._box {
   font-size: 10px;
+}
+.box {
+  display: grid;
+  grid-template-columns: repeat(5, 15em);
+  grid-template-rows: repeat(2, 15em);
+  justify-self: center;
+  align-self: center;
+  grid-row-gap: 40px;
+  grid-column-gap: 20px;
+  padding-bottom: 40px;
+}
+.image {
+  font-size: 8px;
 }

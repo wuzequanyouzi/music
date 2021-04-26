@@ -1,0 +1,18 @@
+.module_card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  .header {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 8px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .container {
+    flex: 1;
+  }
+}

@@ -18,3 +18,12 @@ body {
 .font_size_20 {
   font-size: 20px !important;
 }
+
+div::-webkit-scrollbar {
+  width: 6px;
+  border-radius: 3px;
+}
+div::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); 
+  -webkit-border-radius: 6px;
+}

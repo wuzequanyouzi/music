@@ -1,4 +1,4 @@
-import styles from './HomeLayout.module.css'
+import styles from './HomeLayout.module.scss'
 import Header from '@/view/home/Header/Index.js';
 import Container from '@/view/home/Container/Index.js';
 const HomeLayout = (props) => {

@@ -1,6 +1,6 @@
 .carousel {
   width: 100%;
-  min-width: 800px;
+  min-width: 760px;
   max-width: 1200px;
   height: 240px;
   padding-top: 10px;
@@ -28,24 +28,28 @@
       border-radius: 10px;
     }
     .left {
-      left: 5% !important;
+      z-index: 1;
+      left: 0 !important;
       transform-origin: 0 50%;
       transform: scale(0.8);
     }
 
     .center {
-      z-index: 2;
+      z-index: 3;
       transform: translateX(-50%) scale(1);
     }
 
     .right {
-      z-index: 1;
+      z-index: 2;
       left: unset;
-      right: 5% !important;
+      right: 0 !important;
       transform-origin: 100% 50%;
       transform: scale(0.8);
     }
     .after {
+      z-index: 0;
+      left: 50%;
+      transform: translateX(-50%) scale(0.6);
     }
 
     .switching {
