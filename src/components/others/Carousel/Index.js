@@ -17,45 +17,45 @@ import img8 from '@/assets/images/8.jpg';
 import img9 from '@/assets/images/9.jpg';
 import img10 from '@/assets/images/10.jpg';
 
-let imageList = [
-  {
-    pic: img1
-  },
-  {
-    pic: img2
-  },
-  {
-    pic: img3
-  },
-  {
-    pic: img4
-  },
-  {
-    pic: img5
-  },
-  {
-    pic: img6
-  },
-  {
-    pic: img7
-  },
-  {
-    pic: img8
-  },
-  {
-    pic: img9
-  },
-  {
-    pic: img10
-  }
-]
+// let imageList = [
+//   {
+//     pic: img1
+//   },
+//   {
+//     pic: img2
+//   },
+//   {
+//     pic: img3
+//   },
+//   {
+//     pic: img4
+//   },
+//   {
+//     pic: img5
+//   },
+//   {
+//     pic: img6
+//   },
+//   {
+//     pic: img7
+//   },
+//   {
+//     pic: img8
+//   },
+//   {
+//     pic: img9
+//   },
+//   {
+//     pic: img10
+//   }
+// ]
 let autoplayAnimationFramer = null;
 let autoPlayIndex = 0;
 
 const Carousel = (props) => {
 
   const {
-    // imageList = [],
+    imageList = [],
     autoplay = false,
     delayTime = 2000,
     isShowDots = true,
@@ -276,13 +276,11 @@ const Carousel = (props) => {
 
   // 鼠标进入元素的事件回调
   const mouseEnterHandler = () => {
-    console.log('停止');
     autoplay && cancelAutoPlay();
   };
 
   // 鼠标离开元素的事件回调
   const mouseLeaveHandler = () => {
-    console.log('开始');
     autoplay && autoPlay();
   };
 

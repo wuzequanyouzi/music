@@ -10,11 +10,16 @@ const ImageCard = (props) => {
     showPlayBtn = true
   } = props;
 
+  const [_imageInfo, setImageInfo] = useState(imageInfo);
+  useEffect(() => {
+    setImageInfo(imageInfo);
+  }, [imageInfo])
+
   return (
     <div className={styles.image_card}>
       <div className={styles.hover}>
         <div className={styles.image_container}>
-          <img className={styles.img} src={p1} />
+          <img className={styles.img} src={_imageInfo.picUrl || p1} />
         </div>
         <div className={styles.icon_container}>
           <img className={styles.left_top} />
@@ -27,8 +32,8 @@ const ImageCard = (props) => {
         </div>
       </div>
       <div className={styles.footer}>
-        <span className={styles.title}>[你XX你XX]</span>
-        你XX你XX你XX你XX你XX你XX你XX你XX你XX你XX你XX你XX你你XX你你XX你你XX你XX你XX你XX你XX你XX你XX你XX你XX你XX你XX你XX你XX
+        {/* <span className={styles.title}>[你XX你XX]</span> */}
+        {_imageInfo.name}
       </div>
     </div>
   )

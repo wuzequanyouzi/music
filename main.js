@@ -58,6 +58,16 @@ const createWindow = () => {
     loginWindow = null;
   });
 
+  // 是否全屏
+  ipcMain.on('set-full-screen', (event, fullscreenable) => {
+    win.setFullScreen(fullscreenable);
+  });
+
+  // 最小化
+  ipcMain.on('set-minimize', (event) => {
+    win.minimize();
+  });
+
   win.webContents.on("did-finish-load", () => {
   })
   win.webContents.on('dom-ready', () => {

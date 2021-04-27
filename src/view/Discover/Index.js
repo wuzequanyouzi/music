@@ -10,7 +10,7 @@ import ModuleCard from '@/components/others/ModuleCard/Index.js';
 import styles from './Discover.module.scss';
 
 // js
-import { HomePageService } from '@/api/index.js';
+import { HomePageService, RecommendService } from '@/api/index.js';
 const HEADER_LIST = [
   {
     name: '个性推荐'
@@ -39,17 +39,24 @@ const Discover = (props) => {
 
   // 轮播图列表
   const [carouselImages, setCarouselImages] = useState([]);
-  const [isLoading, setisLoading] = useState(true);
+
+  // 推荐歌单
+  const [personalized, setPersonalized] = useState([]);
 
   window.carouselImages = carouselImages;
   useEffect(() => {
-    setisLoading(false);
     HomePageService.getDiscover()
       .then(data => {
         const images = data.blocks[0]?.extInfo?.banners || [];
+        console.log(data);
         setCarouselImages([...images]);
+      });
+
+    RecommendService.getPersonalized(10)
+      .then(data => {
+        setPersonalized(data);
       })
-  }, [isLoading]);
+  }, []);
 
   return (
     <div className={styles.discover}>
@@ -70,10 +77,10 @@ const Discover = (props) => {
         <ModuleCard >
           <div className={styles.image_box}>
             {
-              [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(item => {
+              personalized.map(item => {
                 return (
-                  <div key={item} className={styles.image}>
-                    <ImageCard />
+                  <div key={item.id} className={styles.image}>
+                    <ImageCard imageInfo={item} />
                   </div>
                 )
               })

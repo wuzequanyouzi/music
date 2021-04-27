@@ -2,7 +2,7 @@ import styles from './header.module.scss';
 import { NavLink } from 'react-router-dom';
 import { Input, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { useStore, useDispatch } from 'react-redux';
 import { LOGIN_INFO } from '@/store/type/user.js';
 
@@ -26,6 +26,7 @@ const loginAfterReplyHandler = (callBack) => {
 const Header = (props) => {
   const [userInfo, setUserInfo] = useState({});
   const [isLogined, setIsLogined] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   // 获取state的用户信息
   const store = useStore()
@@ -55,6 +56,16 @@ const Header = (props) => {
     !isLogined && ipcRenderer.send('login-before', 'login');
   };
 
+  const handleChangeFullScreen = () => {
+    const _isFullScreen = isFullScreen;
+    ipcRenderer.send('set-full-screen', !_isFullScreen);
+    setIsFullScreen(isFullScreen => !isFullScreen);
+  };
+
+  const handleClickMize = () => {
+    ipcRenderer.send('set-minimize');
+  };
+
   return (
     <div className={styles.header}>
       <div className={styles.left}>
@@ -81,13 +92,13 @@ const Header = (props) => {
           </div>
           {
             (!isLogined && userInfo.code !== 200)
-            ? <span>未登录</span>
-            : <span className={styles.nickname}>{userInfo.profile.nickname}</span>
+              ? <span>未登录</span>
+              : <span className={styles.nickname}>{userInfo.profile.nickname}</span>
           }
         </div>
         <div className={styles.system_option}>
-          <i className={`iconfont icon-suoxiao`} style={{ fontSize: '20px', cursor: 'pointer' }}></i>
-          <i className={`iconfont icon-fangda`} style={{ fontSize: '20px', cursor: 'pointer' }}></i>
+          <i className={`iconfont icon-suoxiao`} style={{ fontSize: '20px', cursor: 'pointer' }} onClick={handleClickMize} ></i>
+          <i className={`iconfont ${isFullScreen ? 'icon-suofang' : 'icon-fangda'}`} style={{ fontSize: '20px', cursor: 'pointer' }} onClick={handleChangeFullScreen} ></i>
           <i className={`iconfont icon-guanbi`} style={{ fontSize: '18px', cursor: 'pointer' }}></i>
         </div>
       </div>
