@@ -57,7 +57,6 @@
     justify-content: center;
     align-items: center;
     flex: 3;
-    background-color: red;
     .center_up {
       width: 250px;
       margin: 0 auto;
@@ -67,14 +66,58 @@
       align-items: center;
       .center_option {
         font-size: 22px;
+        cursor: pointer;
+        &:hover {
+          color: #c75151;
+        }
         &:nth-child(3) {
-          font-size: 24px;
+          font-size: 26px;
+          border-radius: 50%;
+          width: 34px;
+          height: 34px;
+          background-color: #EEE;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          &:hover {
+            background-color: #CCC;
+          }
+          &::before {
+            display: flex;
+            width: 24px;
+            height: 24px;
+            justify-content: center;
+            align-items: center;
+          }
         }
       }
     }
     .center_down {
       width: 100%;
       flex: 1;
+      .song_audio {
+        width: 430px;
+        height: 100%;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        color: #888;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        .progress_bar {
+          flex: 1;
+          height: 3px;
+          border-radius: 3px;
+          margin: 0 6px;
+          background-color: #777;
+          display: flex;
+          align-items: center;
+          .progress_bar_current {
+            width: 0px;
+            height: 3px;
+            background-color: #c73e3e;
+          }
+        }
+      }
     }
 
   }

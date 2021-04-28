@@ -15,3 +15,5 @@ export const USER_INFO = (state = userInfo, action) => {
       return state;
   }
 }
+
+export { SONG_INFO } from './modules/song.js';
