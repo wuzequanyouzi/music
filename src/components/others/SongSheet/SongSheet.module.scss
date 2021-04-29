@@ -1,0 +1,122 @@
+.song_sheet {
+  width: 100%;
+  height: auto;
+  padding: 20px 0 0 0;
+  .song_sheet_info {
+    display: flex;
+    align-items: center;
+    .song_sheet_info_left {
+      width: 185px;
+      height: 185px;
+      border-radius: 4px;
+    }
+    .song_sheet_info_right {
+      flex: 1;
+      height: 185px;
+      padding-left: 20px;
+    }
+  }
+  .song_list {
+
+  }
+}
+.title_box {
+  padding: 6px 0 10px 0;
+  display: flex;
+  align-items: center;
+  .tilte_icon {
+    font-size: 12px;
+    padding: 0px 4px;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: 1px solid #e04e4e;
+    color: #e04e4e;
+  }
+  .title {
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 600;
+  }
+}
+.author_box {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  .author_img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+}
+.options_box {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  .play_all_box,.collection,.share,.download_all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+    border-radius: 16px;
+    border: 1px solid #CCC;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .play_all_box {
+    background-color: #e04e4e;
+    color: #FFF;
+    &:hover {
+      background-color: #e03939;
+    }
+    .play_all {
+      width: 100%;
+      height: 100%;
+      padding-left: 14px;
+      padding-right: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    :hover {
+      background-color: #9c1d1d;
+    }
+    .add_play_list {
+      width: 32px;
+      height: 32px;
+      padding-right: 10px;
+      font-size: 32px;
+      line-height: 26px;
+      border-left: 1px solid #f37373;
+    }
+  }
+  .collection,.share,.download_all {
+    padding: 0 14px 0 10px;
+    margin-left: 10px;
+    >span {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &:hover {
+      background-color: #ddd;
+    }
+  }
+}
+
+.info_box {
+  margin-top: 14px;
+  .target_box {
+  }
+  .introduction {
+    height: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .introduction_all {
+    
+  }
+}

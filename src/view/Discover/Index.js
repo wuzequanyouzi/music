@@ -1,5 +1,8 @@
 // 依赖
 import { useState, useEffect } from 'react';
+import {
+  useHistory
+} from "react-router-dom";
 
 // 组件
 import Carousel from '@/components/others/Carousel/Index.js';
@@ -32,6 +35,7 @@ const HEADER_LIST = [
   },
 ]
 const Discover = (props) => {
+  const history = useHistory();
   const [activeHeaderItem, setActiveHeaderItem] = useState('个性推荐');
   const handleClickHeaderItem = (headerItem) => {
     setActiveHeaderItem(headerItem.name);
@@ -58,6 +62,12 @@ const Discover = (props) => {
       })
   }, []);
 
+  // 点击推荐歌单
+  const handleClickSongSheet = (songSheet) => {
+    console.log(songSheet)
+    history.push('/songSheet');
+  };
+
   return (
     <div className={styles.discover}>
       <header className={styles.header}>
@@ -79,7 +89,7 @@ const Discover = (props) => {
             {
               personalized.map(item => {
                 return (
-                  <div key={item.id} className={styles.image}>
+                  <div key={item.id} className={styles.image} onClick={() => handleClickSongSheet(item)}>
                     <ImageCard imageInfo={item} />
                   </div>
                 )
