@@ -5,6 +5,8 @@ import {
   useRef
 } from 'react';
 
+import SongList from '@/components/song/SongList/Index.js';
+
 // 样式
 import styles from './SongSheet.module.scss';
 import p1 from '@/assets/images/1.jpg';
@@ -56,7 +58,7 @@ const SongSheet = () => {
         </div>
       </div>
       <div className={styles.song_list}>
-
+        <SongList />
       </div>
     </div>
   );
