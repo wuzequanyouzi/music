@@ -1,0 +1,43 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .tab {
+    display: flex ;
+    align-items: center;
+    margin-bottom: 10px;
+    >span {
+      cursor: pointer;
+      color: #777;
+      position: relative;
+      padding: 4px 0;
+      &:hover {
+        color: #333;
+      }
+    }
+    .song_list {
+      margin-right: 10px;
+    }
+    .comments {
+      margin-right: 10px;
+    }
+    .collectors {
+
+    }
+    .active_tab {
+      font-weight: 600;
+      color: #333;
+      &::after {
+        content: '';
+        position: absolute;
+        width: 80%;
+        height: 4px;
+        border-radius: 2px;
+        background-color: #e03939;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+      }
+    }
+  }
+}

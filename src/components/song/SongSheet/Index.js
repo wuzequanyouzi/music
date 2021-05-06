@@ -4,6 +4,7 @@ import {
   useEffect,
   useRef
 } from 'react';
+import SongSheetDisplayArea from '../SongSheetDisplayArea/Index.js';
 
 // 样式
 import styles from './SongSheet.module.scss';
@@ -55,8 +56,8 @@ const SongSheet = () => {
           </div>
         </div>
       </div>
-      <div className={styles.song_list}>
-
+      <div className={styles.display_area}>
+        <SongSheetDisplayArea />
       </div>
     </div>
   );
