@@ -13,7 +13,7 @@ import ModuleCard from '@/components/others/ModuleCard/Index.js';
 import styles from './Discover.module.scss';
 
 // js
-import { HomePageService, RecommendService } from '@/api/index.js';
+import { HomePageService, RecommendService, SongService } from '@/api/index.js';
 const HEADER_LIST = [
   {
     name: '个性推荐'
@@ -64,8 +64,10 @@ const Discover = (props) => {
 
   // 点击推荐歌单
   const handleClickSongSheet = (songSheet) => {
-    console.log(songSheet)
-    history.push('/songSheet');
+    history.push({
+      pathname: '/songSheet',
+      params: `id=${songSheet.id}`
+    });
   };
 
   return (

@@ -3,7 +3,7 @@ import SongList from '../SongList/Index.js';
 
 import styles from './SongSheetDisplayArea.module.scss';
 
-const SongSheetDisplayArea = () => {
+const SongSheetDisplayArea = (props) => {
   return (
     <div className={styles.box}>
       <div className={styles.tab}>
@@ -12,7 +12,7 @@ const SongSheetDisplayArea = () => {
         <span className={styles.collectors}>收藏者</span>
       </div>
       <div className={styles.container}>
-        <SongList />
+        <SongList songList={props.songList} />
       </div>
     </div>
   );

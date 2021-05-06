@@ -47,3 +47,6 @@ export { RecommendService } from './recommend/service';
 
 // 登录
 export { LoginService } from './login/service';
+
+// 歌曲
+export { SongService } from './song/service';

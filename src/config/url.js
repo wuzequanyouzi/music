@@ -12,3 +12,9 @@ export const personalizedUrl = `${baseUrl}/personalized`;
 
 // program
 export const programUrl = `${baseUrl}/program`;
+
+// 歌单
+export const songSheetUrl = `${baseUrl}/playlist`;
+
+// 歌曲
+export const songUrl = `${baseUrl}/song`;
