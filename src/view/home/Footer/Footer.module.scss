@@ -1,9 +1,13 @@
 .footer {
-  display: flex;
-  align-items: center;
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  .footer_box {
+    z-index: 1;
+  }
   .left {
+    z-index: 1;
     max-width: 380px;
     height: 100%;
     overflow: hidden;
@@ -21,6 +25,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      cursor: pointer;
       .pic_img {
         width: 48px;
         height: 48px;
@@ -48,15 +53,18 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      cursor: pointer;
     }
   }
   .center {
+    z-index: 1;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     flex: 3;
+    background-color: #FFF;
     .center_up {
       width: 250px;
       margin: 0 auto;
@@ -122,6 +130,7 @@
     }
   }
   .right {
+    z-index: 1;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -136,7 +145,6 @@
   height: 200%;
   transition: all 0.5s;
   position: absolute;
-  // transform: translateY(-50%);
 }
 
 .translate_show {

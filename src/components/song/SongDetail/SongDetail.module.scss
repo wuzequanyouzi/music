@@ -1,0 +1,41 @@
+.songDetail {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 100%;
+  z-index: 0;
+  transition: all 0.5S;
+  background-color: pink;
+}
+.top {
+  display: flex;
+  align-items: center;
+  padding-top: 60px;
+  height: 500px;
+  background-color: lawngreen;
+  .left {
+    flex: 1;
+    height: 100%;
+    background-color: #CCC;
+  }
+  .center {
+    flex: 1;
+    height: 100%;
+    background-color: #222;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #FFF;
+  }
+  .right {
+    flex: 1;
+    height: 100%;
+    background-color: #3C4;
+  }
+}
+.show {
+  top: 0;
+}

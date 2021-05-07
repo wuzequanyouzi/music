@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { useStore, useSelector } from 'react-redux';
 import { SongService } from '@/api';
 
+// 歌曲详情
+import SongDetail from '@/components/song/SongDetail/Index.js';
+
 import styles from './Footer.module.scss';
 import p1 from '@/assets/images/1.jpg';
 
@@ -20,6 +23,7 @@ const Footer = (props) => {
   const [collected, setCollecte] = useState(false);
   const [isVipSong, setIsVipSong] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showSongDetail, setShowSongDetail] = useState(false);
   const [currentPlayingSong, setCurrentPlayingSong] = useState(state.SONG_INFO.currentPlayingSong);
   const [currentPlayingSongMp3Info, setCurrentPlayingSongMp3Info] = useState({});
   const [musicDuration, setMusicDuration] = useState('00:00');
@@ -86,11 +90,22 @@ const Footer = (props) => {
     setIsPlaying(_isPlaying);
   };
 
+  const handleClickShowSongDetail = () => {
+    setShowSongDetail(true);
+  };
+  const handleClickHideSongDetail = () => {
+    setShowSongDetail(false);
+  }
+
   return (
     <div className={styles.footer}>
+      <SongDetail isShow={showSongDetail} />
       <div className={styles.left}>
-        <div className={styles.translate}>
-          <div className={styles.up}>
+        <div className={`${styles.translate} ${showSongDetail && styles.translate_show}`}>
+          <div
+            className={styles.up}
+            onClick={handleClickShowSongDetail}
+          >
             <img className={styles.pic_img} src={currentPlayingSong?.al?.picUrl} />
             <div className={styles.song_info}>
               <div className={styles.song_name}>
@@ -103,7 +118,10 @@ const Footer = (props) => {
               </div>
             </div>
           </div>
-          <div className={styles.down}>
+          <div
+            className={styles.down}
+            onClick={handleClickHideSongDetail}
+          >
             <div className={styles.option}>
               <i className={`iconfont ${styles.collected} ${collected ? 'icon-collected' : 'icon-notcollected'}`}></i>
             </div>

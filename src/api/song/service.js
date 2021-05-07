@@ -9,4 +9,7 @@ export class SongService {
   static getSongMp3Url(params) {
     return song.getSongMp3Url(params);
   }
+  static getSongLyric(params) {
+    return song.getSongLyric(params);
+  }
 }

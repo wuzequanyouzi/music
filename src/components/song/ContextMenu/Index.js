@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import ReactDom from 'react-dom';
 import { useStore, useDispatch } from 'react-redux';
-import { CURRENT_PLAYING_SONG } from '@/store/type/song.js';
+import { CURRENT_PLAYING_SONG, SONG_LYRIC_INFO } from '@/store/type/song.js';
 import { SongService } from '@/api';
 
 import styles from './ContextMenu.module.scss';
@@ -27,6 +27,15 @@ const ContextMenu = (props) => {
       type: CURRENT_PLAYING_SONG,
       currentPlayingSong: _songInfo.songInfo
     });
+    SongService.getSongLyric({
+      id: _songInfo.songInfo.id
+    }).then(data => {
+      console.log(data);
+      dispatch({
+        type: SONG_LYRIC_INFO,
+        songLyricInfo: data
+      });
+    })
   }
   return (
     ReactDom.createPortal(
