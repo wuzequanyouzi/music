@@ -25,11 +25,9 @@ const SongSheet = () => {
   useEffect(() => {
     if (!history.location.params) return;
     const id = history.location.params.split('=')[1];
-    console.log(id);
     SongService.getSongSheetDetail({
       id
     }).then(data => {
-      console.log(data);
       setSongSheet(data.playlist)
       const ids = data.playlist.trackIds.map(trackId => {
         return trackId.id;
@@ -37,7 +35,6 @@ const SongSheet = () => {
       SongService.getSongDetail({
         ids
       }).then(data => {
-        console.log(data);
         setSongList(data.songs);
       })
     })

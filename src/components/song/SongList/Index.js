@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, forwardRef } from 'react';
 import { Table } from 'antd';
 import ContextMenu from '../ContextMenu/Index.js';
 
@@ -15,10 +15,10 @@ const translator = (lists) => {
       songTitle: listItem.name,
       singer: listItem.ar.map(item => item.name).join('/'),
       album: listItem.al.name,
-      time: listItem.dt
+      time: listItem.dt,
+      songInfo: listItem
     }
   });
-  console.log(resultList);
   return resultList;
 }
 
@@ -53,31 +53,60 @@ const columns = [
   },
 ];
 
+const NewContextMenu = forwardRef((props, ref) => <ContextMenu grandref={ref}  {...props} />)
+
 const SongList = (props) => {
   const [data, setData] = useState(props.songList);
   const [isShowContextMenu, setIsShowContextMenu] = useState(false);
   const [contextMenuTop, setContextMenuTop] = useState(0);
   const [contextMenuLeft, setContextMenuLeft] = useState(0);
+  const [songInfo, setSongInfo] = useState({});
+  const contextMenuRef = useRef(null);
   useEffect(() => {
-    console.log(props.songList)
     setData(translator(props.songList));
   }, [props.songList]);
 
+  useEffect(() => {
+    const checkoutSide = (e) => {
+      const inSide = document.getElementsByClassName('ant-table-tbody')[0].contains(e.target) || contextMenuRef.current.contains(e.target);
+      !inSide && setIsShowContextMenu(inSide);
+
+      // 点击到菜单
+      if (contextMenuRef.current.contains(e.target)) {
+        setTimeout(() => {
+          setIsShowContextMenu(false);
+        }, 100);
+      }
+    };
+    document.addEventListener('mousedown', checkoutSide);
+    return () => {
+      document.removeEventListener('mousedown', checkoutSide);
+    }
+  }, []);
+
   // 右键事件回调
-  const handleClickContextMenu = (e) => {
+  const handleClickContextMenu = (e, row) => {
     setContextMenuTop(e.clientY);
-    setContextMenuLeft(e.clientX);
-    setIsShowContextMenu(isShowContextMenu => !isShowContextMenu);
-    console.log(e);
+    setContextMenuLeft(e.clientX + 10);
+    setSongInfo(row);
+    setIsShowContextMenu(true);
   };
   return (
-    <div className={styles.song_list_box}>
+    <div
+      className={styles.song_list_box}
+    >
       <Table size="small" columns={columns} dataSource={data} pagination={false} onRow={record => {
         return {
-          onContextMenu: (e) => handleClickContextMenu(e)
+          onContextMenu: (e) => handleClickContextMenu(e, record)
         }
       }} />
-      <ContextMenu isShow={isShowContextMenu} top={contextMenuTop} left={contextMenuLeft} />
+
+      <NewContextMenu
+        ref={contextMenuRef}
+        isShow={isShowContextMenu}
+        top={contextMenuTop}
+        left={contextMenuLeft}
+        songInfo={songInfo} />
     </div>
   )
 };

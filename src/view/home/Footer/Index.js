@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { useStore } from 'react-redux';
+import { useStore, useSelector } from 'react-redux';
+import { SongService } from '@/api';
 
 import styles from './Footer.module.scss';
 import p1 from '@/assets/images/1.jpg';
@@ -20,14 +21,40 @@ const Footer = (props) => {
   const [isVipSong, setIsVipSong] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentPlayingSong, setCurrentPlayingSong] = useState(state.SONG_INFO.currentPlayingSong);
+  const [currentPlayingSongMp3Info, setCurrentPlayingSongMp3Info] = useState({});
   const [musicDuration, setMusicDuration] = useState('00:00');
   const [currentMusicDuration, setCurrentMusicDuration] = useState('00:00');
   const audioDom = useRef(null);
   const currentProgressBar = useRef(null);
 
+  const currentSongInfo = useSelector(state => state.SONG_INFO.currentPlayingSong);
+
+  // 当前播放的歌曲信息变化，先停止播放
   useEffect(() => {
-    setCurrentPlayingSong(state.SONG_INFO.currentPlayingSong);
-  }, [state.SONG_INFO.currentPlayingSong]);
+    console.log(currentSongInfo.id, currentPlayingSong.id, currentSongInfo.id !== currentPlayingSong.id);
+    if (currentSongInfo.id && currentSongInfo.id !== currentPlayingSong.id) {
+      setCurrentPlayingSong(currentSongInfo);
+      audioDom.current.pause();
+    }
+  }, [currentSongInfo]);
+
+  // 获取变化后的歌曲的播放url
+  useEffect(() => {
+    if (!currentPlayingSong.id) return;
+    SongService.getSongMp3Url({
+      id: currentPlayingSong.id
+    }).then(data => {
+      setCurrentPlayingSongMp3Info(data[0]);
+    })
+  }, [currentPlayingSong]);
+
+  useEffect(() => {
+    console.log(currentPlayingSongMp3Info);
+    if (currentPlayingSongMp3Info.url) {
+      audioDom.current.play();
+      setIsPlaying(true);
+    }
+  }, [currentPlayingSongMp3Info]);
 
   // 获取音乐时长
   const getMusicDuration = () => {
@@ -38,10 +65,10 @@ const Footer = (props) => {
   // 获取音乐播放实时时间
   const getMusicCurrentDuration = () => {
     const _currentDuration = formatTime(audioDom.current.currentTime);
-    if (audioDom.current.currentTime  >=  audioDom.current.duration) {
+    if (audioDom.current.currentTime >= audioDom.current.duration) {
       currentProgressBar.current.style.width = '100%';
     } else {
-      const width = Math.round(currentProgressBar.current.parentNode.offsetWidth * (audioDom.current.currentTime / audioDom.current.duration));    
+      const width = Math.round(currentProgressBar.current.parentNode.offsetWidth * (audioDom.current.currentTime / audioDom.current.duration));
       currentProgressBar.current.style.width = `${width}px`;
     }
     setCurrentMusicDuration(_currentDuration);
@@ -64,15 +91,15 @@ const Footer = (props) => {
       <div className={styles.left}>
         <div className={styles.translate}>
           <div className={styles.up}>
-            <img className={styles.pic_img} src={p1} />
+            <img className={styles.pic_img} src={currentPlayingSong?.al?.picUrl} />
             <div className={styles.song_info}>
               <div className={styles.song_name}>
-                <span>{'River Flows In You'}</span>
+                <span>{currentPlayingSong.name}</span>
                 {isVipSong && <div className={styles.vip}>VIP</div>}
                 <i className={`iconfont ${styles.collected} ${collected ? 'icon-collected' : 'icon-notcollected'}`}></i>
               </div>
               <div className={styles.song_author}>
-                <span>{'River Flows In You'}</span>
+                <span>{currentPlayingSong?.ar?.map(arItem => arItem.name).join('/')}</span>
               </div>
             </div>
           </div>
@@ -112,7 +139,7 @@ const Footer = (props) => {
             <span className={styles.timer}>{musicDuration}</span>
             <audio
               ref={audioDom}
-              src="http://m8.music.126.net/20210428223230/01d50914926f5af3d0d41ade4f9a5e1e/ymusic/0fd6/4f65/43ed/a8772889f38dfcb91c04da915b301617.mp3"
+              src={currentPlayingSongMp3Info?.url}
               onCanPlay={getMusicDuration}
               onTimeUpdate={getMusicCurrentDuration}
             ></audio>

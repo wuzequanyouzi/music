@@ -1,5 +1,4 @@
 import React, { lazy, Suspense } from 'react';
-import HomeLayout from '@/layout/HomeLayout/Index.js';
 
 const SuspenseComponent = Component => props => {
   return (
@@ -25,15 +24,13 @@ const routes = [
     children: [
       {
         path: '/discover',
-        layout: HomeLayout,
         component: SuspenseComponent(Discover)
+      },
+      {
+        path: '/songSheet',
+        component: SuspenseComponent(SongSheet)
       }
     ]
-  },
-  {
-    path: '/songSheet',
-    layout: HomeLayout,
-    component: SuspenseComponent(SongSheet)
   },
   {
     path: '/test',

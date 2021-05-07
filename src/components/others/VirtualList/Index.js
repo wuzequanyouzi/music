@@ -28,14 +28,12 @@ const VirtualList = (props) => {
 
   // 计算可显示的个数
   const visibleCount = useMemo(() => {
-    console.log(Math.ceil(screenHeight / itemSize))
     return Math.ceil(screenHeight / itemSize);
   }, [screenHeight, itemSize]);
 
   // 渲染的列表数据
   const visibleData = useMemo(() => {
     const _end = start + visibleCount;
-    console.log(lists.slice(start, Math.min(_end, lists.length)));
     return lists.slice(start, Math.min(_end, lists.length));
   }, [start, lists, visibleCount]);
 

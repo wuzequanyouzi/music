@@ -6,12 +6,24 @@
   position: absolute;
   top: 0;
   left: 0;
+  background-color: #fff;
   .up,
   .center,
   .down {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    > div {
+      padding: 5px 0 5px 10px;
+      &:hover {
+        background-color: #ccc;
+      }
+    }
   }
+}
+
+.icon {
+  margin-right: 10px;
 }
 
 .isNotShow {

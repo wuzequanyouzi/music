@@ -1,19 +1,22 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router';
 import styles from './Menu.module.scss';
 const Menu = (props) => {
+  const history = useHistory();
 
   // 选中的菜单项
   const [activeMenuItem, setActiveMenuItem] = useState('发现音乐');
 
   // 单击菜单事件
   const handleClickMenuItem = (menuItem) => {
-    setActiveMenuItem(menuItem);
+    setActiveMenuItem(menuItem.name);
+    menuItem.path && history.push(menuItem.path);
   }
   const {
     menu = [
       {
         name: '发现音乐',
-        path: '/home'
+        path: '/home/'
       },
       {
         name: '视频'
@@ -50,7 +53,7 @@ const Menu = (props) => {
             <div
               key={menuItem.name}
               className={`${styles.plubic_menu_item} ${activeMenuItem === menuItem.name ? styles.plubic_menu_item_active : ''}`}
-              onClick={() => handleClickMenuItem(menuItem.name)}
+              onClick={() => handleClickMenuItem(menuItem)}
             >{menuItem.name}</div>
           ))
         }
@@ -65,7 +68,7 @@ const Menu = (props) => {
               <div
                 key={musicItem.name}
                 className={`${styles.my_music_item} ${activeMenuItem === musicItem.name ? styles.plubic_menu_item_active : ''}`}
-                onClick={() => handleClickMenuItem(musicItem.name)}
+                onClick={() => handleClickMenuItem(musicItem)}
               >
                 <i className={`iconfont icon-tinggeshiqu ${styles.public_icon}`}></i>
                 <span>{musicItem.name}</span>
@@ -84,7 +87,7 @@ const Menu = (props) => {
               <div
                 key={musicItem.name}
                 className={`${styles.my_music_item} ${activeMenuItem === musicItem.name ? styles.plubic_menu_item_active : ''}`}
-                onClick={() => handleClickMenuItem(musicItem.name)}
+                onClick={() => handleClickMenuItem(musicItem)}
               >
                 <i className={`iconfont icon-tinggeshiqu ${styles.public_icon}`}></i>
                 <span>{musicItem.name}</span>

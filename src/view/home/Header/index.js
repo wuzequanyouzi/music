@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Input, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useState, useCallback, useEffect, useRef } from 'react'
-import { useStore, useDispatch } from 'react-redux';
+import { useStore, useDispatch, useSelector } from 'react-redux';
 import { LOGIN_INFO } from '@/store/type/user.js';
 
 const { ipcRenderer } = window.require('electron');
@@ -47,10 +47,13 @@ const Header = (props) => {
   loginAfterReplyHandler(setLoginInfo);
 
   // 监听state发生变化
-  const unSubscribe = store.subscribe(() => {
-    setUserInfo(store.getState().USER_INFO.loginInfo);
-    setIsLogined(true);
-  });
+  const loginInfo = useSelector(state => state.USER_INFO.loginInfo);
+  useEffect(() => {
+    if (loginInfo.profile) {
+      setUserInfo(loginInfo);
+      setIsLogined(true);
+    }
+  }, [loginInfo]);
 
   const handleClickLogin = () => {
     !isLogined && ipcRenderer.send('login-before', 'login');

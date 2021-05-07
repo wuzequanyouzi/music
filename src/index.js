@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from "react-router-dom";
 import { Switch, Route, Redirect } from 'react-router';
@@ -12,6 +12,8 @@ import '@/assets/iconfont/index.css';
 import 'antd/dist/antd.css';
 // import reportWebVitals from './reportWebVitals';
 
+import HomeLayout from '@/layout/HomeLayout/Index.js';
+
 const store = createStore(state);
 
 const getRouterByRouters = (routes) => {
@@ -19,6 +21,14 @@ const getRouterByRouters = (routes) => {
   const renderRoutes = (routes, parentPath) => {
     Array.isArray(routes) && routes.forEach((route) => {
       const { path, redirect, children, layout, component } = route;
+      if (layout) {
+        <Route
+          key={`${parentPath}${path}`}
+          exact
+          path={`${parentPath}${path}`}
+          component={component}
+        />
+      }
       if (redirect) {
         renderedRoutesList.push(
           <Redirect
@@ -49,8 +59,9 @@ const getRouterByRouters = (routes) => {
     });
   }
   renderRoutes(routes, '');
+  console.log(renderedRoutesList);
   return renderedRoutesList;
-}
+};
 
 window.store = store;
 
@@ -58,9 +69,11 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <HashRouter>
-        <Switch>
-          {getRouterByRouters(routes)}
-        </Switch>
+        <HomeLayout>
+          <Switch>
+            {getRouterByRouters(routes)}
+          </Switch>
+        </HomeLayout>
       </HashRouter>
     </Provider>
   </React.StrictMode>,

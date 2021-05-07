@@ -52,7 +52,6 @@ const Discover = (props) => {
     HomePageService.getDiscover()
       .then(data => {
         const images = data.blocks[0]?.extInfo?.banners || [];
-        console.log(data);
         setCarouselImages([...images]);
       });
 
@@ -65,7 +64,7 @@ const Discover = (props) => {
   // 点击推荐歌单
   const handleClickSongSheet = (songSheet) => {
     history.push({
-      pathname: '/songSheet',
+      pathname: '/home/songSheet',
       params: `id=${songSheet.id}`
     });
   };
