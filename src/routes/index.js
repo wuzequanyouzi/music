@@ -10,8 +10,6 @@ const SuspenseComponent = Component => props => {
 
 const Discover = lazy(() => import('@/view/Discover/Index.js'));
 const SongSheet = lazy(() => import('@/components/song/SongSheet/Index.js'));
-const Test = lazy(() => import('@/view/test/Index.js'));
-const Login = lazy(() => import('@/view/login/Index.js'));
 
 const routes = [
   {
@@ -31,11 +29,6 @@ const routes = [
         component: SuspenseComponent(SongSheet)
       }
     ]
-  },
-  {
-    path: '/test',
-    // layout: HomeLayout,
-    component: SuspenseComponent(Test)
   }
 ]
 

@@ -13,6 +13,15 @@ import 'antd/dist/antd.css';
 // import reportWebVitals from './reportWebVitals';
 
 import HomeLayout from '@/layout/HomeLayout/Index.js';
+const Lyric = lazy(() => import('@/view/Lyric/Index.js'));
+
+const SuspenseComponent = Component => props => {
+  return (
+    <Suspense fallback={null}>
+      <Component {...props}></Component>
+    </Suspense>
+  )
+};
 
 const store = createStore(state);
 
@@ -69,11 +78,20 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <HashRouter>
-        <HomeLayout>
-          <Switch>
-            {getRouterByRouters(routes)}
-          </Switch>
-        </HomeLayout>
+        <Switch>
+          <Route exact path="/lyric">
+            {SuspenseComponent(Lyric)}
+          </Route>
+          <Route
+            path="/"
+          >
+            <HomeLayout>
+              <Switch>
+                {getRouterByRouters(routes)}
+              </Switch>
+            </HomeLayout>
+          </Route>
+        </Switch>
       </HashRouter>
     </Provider>
   </React.StrictMode>,

@@ -1,4 +1,4 @@
-const { createLoginWindow } = require('./electron/index');
+const { createLoginWindow, createLyricWindow } = require('./electron/index');
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
@@ -38,7 +38,9 @@ const createWindow = () => {
   }
 
   let loginWindow = null;
+  let lyricWindow = null;
 
+  /* --------------登录部分start-------------*/
   // 登录前
   ipcMain.on('login-before', (event, ...args) => {
     if (!loginWindow) {
@@ -56,6 +58,22 @@ const createWindow = () => {
     loginWindow.close();
     loginWindow = null;
   });
+  /* --------------登录部分end--------------*/
+
+  /* --------------歌词部分start-------------*/
+  // 歌词打开
+  ipcMain.on('lyric-open', (event, ...args) => {
+    if (!lyricWindow) {
+      lyricWindow = createLyricWindow(win);
+    } else {
+      lyricWindow.show();
+    }
+  });
+  // 歌词关闭
+  ipcMain.on('lyric-hide', (event, ...args) => {
+    lyricWindow.hide();
+  });
+  /* --------------歌词部分end---------------*/
 
   // 是否全屏
   ipcMain.on('set-full-screen', (event, fullscreenable) => {

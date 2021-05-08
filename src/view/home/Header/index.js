@@ -69,6 +69,11 @@ const Header = (props) => {
     ipcRenderer.send('set-minimize');
   };
 
+  // 临时
+  const handleOpenLyric = () => {
+    ipcRenderer.send('lyric-open');
+  }
+
   return (
     <div className={styles.header}>
       <div className={styles.left}>
@@ -80,7 +85,9 @@ const Header = (props) => {
           <div className={styles.search_input}>
             <Input placeholder="搜索" className={styles.input} prefix={<SearchIcon />}></Input>
           </div>
-          <NavLink to="/home/test"><i className={`iconfont icon-tinggeshiqu font_size_20 ${styles.listen_icon}`} ></i></NavLink>
+          {/* <NavLink to="/test"><i className={`iconfont icon-tinggeshiqu font_size_20 ${styles.listen_icon}`} ></i></NavLink> */}
+
+          <div onClick={handleOpenLyric}><i className={`iconfont icon-tinggeshiqu font_size_20 ${styles.listen_icon}`} ></i></div>
         </div>
       </div>
       <div className={styles.right}>
