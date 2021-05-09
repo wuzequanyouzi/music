@@ -1,11 +1,11 @@
 .image_card {
   font-size: 1em;
   position: relative;
-  width: 20em;
+  width: 100%;
   box-sizing: content-box;
   .image_container {
-    width: 20em;
-    height: 20em;
+    width: 100%;
+    height: auto;
     border-radius: 4px;
     overflow: hidden;
     cursor: pointer;

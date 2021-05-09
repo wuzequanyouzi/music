@@ -9,6 +9,9 @@ import {
 
 import { getLrcArray } from '@/utils';
 
+// 渲染进程
+const { ipcRenderer } = window.require('electron');
+
 // State
 const songInfo = {
   currentPlayingSong: {},
@@ -24,11 +27,13 @@ export const SONG_INFO = (state = songInfo, action) => {
     case SONG_PLAY_LIST:
       return Object.assign({}, state, { songPlayList: action.songPlayList });
     case SONG_LYRIC_INFO:
+      const songLyricInfo = {
+        ...action.songLyricInfo,
+        lrcArray: getLrcArray(action.songLyricInfo.lrc.lyric)
+      };
+      ipcRenderer.send('emit-save-lrc-info', songLyricInfo);
       return Object.assign({}, state, {
-        songLyricInfo: {
-          ...action.songLyricInfo,
-          lrcArray: getLrcArray(action.songLyricInfo.lrc.lyric)
-        }
+        songLyricInfo
       });
     default:
       return state;

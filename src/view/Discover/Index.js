@@ -82,22 +82,29 @@ const Discover = (props) => {
           ))
         }
       </header>
-      <div className={styles.container}>
-        <Carousel className={styles.carousel} autoplay={true} delayTime={4000} imageList={carouselImages} />
-        {/* 推荐 */}
-        <ModuleCard >
-          <div className={styles.image_box}>
-            {
-              personalized.map(item => {
-                return (
-                  <div key={item.id} className={styles.image} onClick={() => handleClickSongSheet(item)}>
-                    <ImageCard imageInfo={item} />
-                  </div>
-                )
-              })
-            }
-          </div>
-        </ModuleCard>
+      <div className={styles.container_box}>
+        <div className={styles.container}>
+          <Carousel className={styles.carousel} autoplay={true} delayTime={4000} imageList={carouselImages} />
+          {/* 推荐 */}
+          <ModuleCard
+            headerTitle="推荐歌单"
+          >
+            <div className={styles.image_box}>
+              {
+                personalized.map(item => {
+                  return (
+                    <div key={item.id} className={styles.image} onClick={() => handleClickSongSheet(item)}>
+                      <ImageCard imageInfo={item} />
+                    </div>
+                  )
+                })
+              }
+            </div>
+          </ModuleCard>
+          <ModuleCard
+            headerTitle="独家放送"
+          ></ModuleCard>
+        </div>
       </div>
     </div>
   )

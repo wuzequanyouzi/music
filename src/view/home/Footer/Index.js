@@ -8,6 +8,8 @@ import SongDetail from '@/components/song/SongDetail/Index.js';
 import styles from './Footer.module.scss';
 import p1 from '@/assets/images/1.jpg';
 
+const { ipcRenderer } = window.require('electron');
+
 // 格式化时间00:00
 const formatTime = (time) => {
   const _duration = Math.round(time);
@@ -75,6 +77,8 @@ const Footer = (props) => {
       const width = Math.round(currentProgressBar.current.parentNode.offsetWidth * (audioDom.current.currentTime / audioDom.current.duration));
       currentProgressBar.current.style.width = `${width}px`;
     }
+    console.log(audioDom.current.currentTime);
+    ipcRenderer.send('emit-update-lrc-words', audioDom.current.currentTime);
     setCurrentMusicDuration(_currentDuration);
   };
 

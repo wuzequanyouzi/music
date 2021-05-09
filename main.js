@@ -1,9 +1,8 @@
 const { createLoginWindow, createLyricWindow } = require('./electron/index');
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, screen } = require('electron');
 const path = require('path');
 const url = require('url');
 const mode = process.argv[2];
-
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 1024,
@@ -61,10 +60,22 @@ const createWindow = () => {
   /* --------------登录部分end--------------*/
 
   /* --------------歌词部分start-------------*/
+
+  // 主进程监听触发歌词信息保存的事件
+  ipcMain.on('emit-save-lrc-info', (event, lrcInfo) => {
+    lyricWindow && lyricWindow.webContents.send('save-lrc-info', lrcInfo);
+  });
+
+  // 主进程监听触发歌词更新的事件
+  ipcMain.on('emit-update-lrc-words', (event, time) => {
+    lyricWindow && lyricWindow.webContents.send('update-lrc-words', time);
+  });
+
+  let lyricWindowMovingInterval = null;
   // 歌词打开
   ipcMain.on('lyric-open', (event, ...args) => {
     if (!lyricWindow) {
-      lyricWindow = createLyricWindow(win);
+      lyricWindow = createLyricWindow();
     } else {
       lyricWindow.show();
     }
@@ -72,6 +83,23 @@ const createWindow = () => {
   // 歌词关闭
   ipcMain.on('lyric-hide', (event, ...args) => {
     lyricWindow.hide();
+  });
+  ipcMain.on('drag', (event, status) => {
+    if (status) {
+      const lyricWindowPosition = lyricWindow.getPosition();
+      const mouseStartPosition = screen.getCursorScreenPoint();
+      lyricWindowMovingInterval && clearInterval(lyricWindowMovingInterval);
+      lyricWindowMovingInterval = setInterval(() => {
+        // 实时更新位置
+        const cursorPosition = screen.getCursorScreenPoint();
+        const x = lyricWindowPosition[0] + cursorPosition.x - mouseStartPosition.x;
+        const y = lyricWindowPosition[1] + cursorPosition.y - mouseStartPosition.y;
+        lyricWindow.setPosition(x, y, true);
+      }, 10);
+    } else {
+      clearInterval(lyricWindowMovingInterval);
+      lyricWindowMovingInterval = null;
+    }
   });
   /* --------------歌词部分end---------------*/
 

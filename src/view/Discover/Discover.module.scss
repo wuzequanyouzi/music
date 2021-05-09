@@ -11,6 +11,7 @@
   display: flex;
   align-items: center;
   font-size: 16px;
+  margin: 10px 0;
   .header_item {
     margin: 0 10px;
     cursor: pointer;
@@ -36,7 +37,6 @@
   }
 }
 .container {
-  flex: 1;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -48,13 +48,11 @@
   padding-right: 30px;
   .image_box {
     display: grid;
-    grid-template-columns: repeat(5, 14em);
-    grid-template-rows: repeat(2, 14em);
+    grid-template-columns: repeat(5, 14vw);
+    grid-template-rows: repeat(2, 18vw);
     justify-self: center;
     align-self: center;
-    grid-row-gap: 60px;
     grid-column-gap: 14px;
-    padding-bottom: 40px;
   }
   .image {
     font-size: 7px;

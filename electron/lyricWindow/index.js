@@ -6,13 +6,17 @@ const mode = process.argv[2];
 
 const createLyricWindow = (homeWindow) => {
   const lyricWindow = new BrowserWindow({
-    parent: homeWindow,
+    parent: homeWindow || null,
     width: 550,
+    minWidth: 550,
     height: 80,
     minHeight: 80,
     maxHeight: 180,
     frame: false, // 无边框
     show: false,
+    skipTaskbar: true, // 是否在任务栏显示窗口
+    alwaysOnTop: true, // 窗口永远在其他窗口之上
+    hasShadow: true, // 窗口是否应有阴影
     titleBarStyle: 'hidden',  // 隐藏标题栏, 内容充满整个窗口, 但它依然在左上角, 仍然受标准窗口控制.
     fullscreenable: false,  // 不可全屏
     autoHideMenuBar: true,  //  隐藏菜单栏
@@ -40,6 +44,7 @@ const createLyricWindow = (homeWindow) => {
   }
   lyricWindow.once('ready-to-show', () => {
     lyricWindow.show();
+    lyricWindow.shadow = true;
   });
 
   return lyricWindow;
