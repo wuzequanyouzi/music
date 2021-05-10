@@ -172,7 +172,8 @@ module.exports = function (webpackEnv) {
     // This means they will be the "root" imports that are included in JS bundle.
     entry: {
       index: [paths.appIndexJs, isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient')].filter(Boolean),
-      login: [paths.appLoginJs, isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient')].filter(Boolean)
+      login: [paths.appLoginJs, isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient')].filter(Boolean),
+      lyric: [paths.appLyricJs, isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient')].filter(Boolean)
     },
     /*
       isEnvDevelopment && !shouldUseReactRefresh
@@ -571,6 +572,7 @@ module.exports = function (webpackEnv) {
       ],
     },
     plugins: [
+      // 多页打包
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
@@ -599,6 +601,7 @@ module.exports = function (webpackEnv) {
             : undefined
         )
       ),
+      // 登录页
       new HtmlWebpackPlugin(
         Object.assign(
           {},
@@ -607,6 +610,34 @@ module.exports = function (webpackEnv) {
             template: paths.appLoginHtml,
             filename: 'login.html',
             chunks: ['login']
+          },
+          isEnvProduction
+            ? {
+              minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeRedundantAttributes: true,
+                useShortDoctype: true,
+                removeEmptyAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                keepClosingSlash: true,
+                minifyJS: true,
+                minifyCSS: true,
+                minifyURLs: true,
+              },
+            }
+            : undefined
+        )
+      ),
+      // 歌词页
+      new HtmlWebpackPlugin(
+        Object.assign(
+          {},
+          {
+            inject: true,
+            template: paths.appLyricHtml,
+            filename: 'lyric.html',
+            chunks: ['lyric']
           },
           isEnvProduction
             ? {

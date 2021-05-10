@@ -1,4 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, StrictMode } from 'react';
+import ReactDOM from 'react-dom';
+
+// 样式
+import '@/assets/css/index.css';
 import styles from './Lyric.module.scss';
 
 const { ipcRenderer } = window.require('electron');
@@ -93,4 +97,9 @@ const Lyric = () => {
   )
 };
 
-export default Lyric;
+ReactDOM.render(
+  <StrictMode>
+    <Lyric />
+  </StrictMode>,
+  document.getElementById('root')
+);

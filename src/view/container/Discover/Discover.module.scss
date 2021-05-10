@@ -47,12 +47,24 @@
   overflow-y: auto;
   padding-right: 30px;
   .image_box {
+    min-height: 360px;
     display: grid;
-    grid-template-columns: repeat(5, 14vw);
-    grid-template-rows: repeat(2, 18vw);
+    grid-template-columns: repeat(5, 1fr);
     justify-self: center;
     align-self: center;
     grid-column-gap: 14px;
+    grid-row-gap: 14px;
+  }
+  // 独家放送
+  
+  .three_image_box {
+    min-height: 160px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-self: center;
+    align-self: center;
+    grid-column-gap: 14px;
+    grid-row-gap: 14px;
   }
   .image {
     font-size: 7px;

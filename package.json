@@ -88,7 +88,8 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "electron-dev": "electron . dev",
-    "electron-start": "electron"
+    "electron-start": "electron .",
+    "pack":"electron-packager . 抑郁云音乐 --platform=win32 --arch=x64  --out=./out --asar --app-version=0.0.2"
   },
   "eslintConfig": {
     "extends": [
@@ -166,6 +167,7 @@
     ]
   },
   "devDependencies": {
+    "electron-packager": "^15.2.0",
     "node-loader": "^2.0.0",
     "sass": "^1.32.11",
     "sass-loader": "^10.1.1"

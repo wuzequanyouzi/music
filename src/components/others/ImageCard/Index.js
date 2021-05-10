@@ -20,15 +20,15 @@ const ImageCard = (props) => {
       <div className={styles.hover}>
         <div className={styles.image_container}>
           <img className={styles.img} src={_imageInfo.picUrl || p1} />
-        </div>
-        <div className={styles.icon_container}>
-          <img className={styles.left_top} />
-          <div className={styles.right_top}>{'你叉叉'}</div>
-          <div className={styles.left_bottom}>{'你叉叉'}</div>
-          <div className={styles.right_bottom}>{'你叉叉'}</div>
-          {showPlayBtn && (<div className={styles.play_btn}>
-            <i className={'iconfont icon-musicplay1'} style={{ fontSize: '30px', color: '#EEE' }}></i>
-          </div>)}
+          <div className={styles.icon_container}>
+            <img className={styles.left_top} />
+            <div className={styles.right_top}>{'你叉叉'}</div>
+            <div className={styles.left_bottom}>{'你叉叉'}</div>
+            <div className={styles.right_bottom}>{'你叉叉'}</div>
+            {showPlayBtn && (<div className={styles.play_btn}>
+              <i className={'iconfont icon-musicplay1'} style={{ fontSize: '30px', color: '#EEE' }}></i>
+            </div>)}
+          </div>
         </div>
       </div>
       <div className={styles.footer}>

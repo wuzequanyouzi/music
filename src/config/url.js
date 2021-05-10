@@ -18,3 +18,6 @@ export const songSheetUrl = `${baseUrl}/playlist`;
 
 // 歌曲
 export const songUrl = `${baseUrl}/song`;
+
+// top
+export const topUrl = `${baseUrl}/top`;

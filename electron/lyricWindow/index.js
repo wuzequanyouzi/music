@@ -34,10 +34,10 @@ const createLyricWindow = (homeWindow) => {
   })
   //  判断是否开发模式
   if (mode === 'dev') {
-    lyricWindow.loadURL('http://localhost:3000/index.html/#/lyric');
+    lyricWindow.loadURL('http://localhost:3000/lyric.html');
   } else {
     lyricWindow.loadURL(url.format({
-      pathname: path.join(__dirname, './build/index.html/#/lyric'),
+      pathname: path.join(__dirname, '../../build/lyric.html'),
       protocol: 'file',
       slashes: true
     }))

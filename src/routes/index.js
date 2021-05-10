@@ -8,7 +8,7 @@ const SuspenseComponent = Component => props => {
   )
 };
 
-const Discover = lazy(() => import('@/view/Discover/Index.js'));
+const Discover = lazy(() => import('@/view/container/Discover/Index.js'));
 const SongSheet = lazy(() => import('@/components/song/SongSheet/Index.js'));
 
 const routes = [

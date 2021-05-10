@@ -30,7 +30,7 @@ const createLoginWindow = (homeWindow) => {
     loginWindow.loadURL('http://localhost:3000/login.html');
   } else {
     loginWindow.loadURL(url.format({
-      pathname: path.join(__dirname, './build/login.html'),
+      pathname: path.join(__dirname, '../../build/login.html'),
       protocol: 'file',
       slashes: true
     }))

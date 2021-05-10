@@ -50,3 +50,9 @@ export { LoginService } from './login/service';
 
 // 歌曲
 export { SongService } from './song/service';
+
+// 个性化
+export { PersonalizedService } from './personalized/service';
+
+// Top
+export { TopService } from './top/service';

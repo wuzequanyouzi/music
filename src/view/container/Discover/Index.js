@@ -9,11 +9,21 @@ import Carousel from '@/components/others/Carousel/Index.js';
 import ImageCard from '@/components/others/ImageCard/Index.js';
 import ModuleCard from '@/components/others/ModuleCard/Index.js';
 
+// 公共
+import { regionMap } from '@/config/constant.js';
+
 // 样式or图片
 import styles from './Discover.module.scss';
 
 // js
-import { HomePageService, RecommendService, SongService } from '@/api/index.js';
+import {
+  HomePageService,
+  RecommendService,
+  SongService,
+  PrivatecontentService,
+  PersonalizedService,
+  TopService
+} from '@/api/index.js';
 const HEADER_LIST = [
   {
     name: '个性推荐'
@@ -47,18 +57,49 @@ const Discover = (props) => {
   // 推荐歌单
   const [personalized, setPersonalized] = useState([]);
 
+  // 独家放送（入口列表）
+  const [privatecontent, setPrivatecontent] = useState([]);
+
+  // 推荐MV
+  const [personalizedMV, setPersonalizedMV] = useState([]);
+
+  // 最新音乐
+  const [newMusic, setNewMusic] = useState([]);
+
   window.carouselImages = carouselImages;
   useEffect(() => {
+
+    // 获取轮播列表
     HomePageService.getDiscover()
       .then(data => {
         const images = data.blocks[0]?.extInfo?.banners || [];
         setCarouselImages([...images]);
       });
 
+    // 推荐歌单列表
     RecommendService.getPersonalized(10)
       .then(data => {
         setPersonalized(data);
-      })
+      });
+
+    // 独家放送（入口列表）
+    PrivatecontentService.getPrivatecontent()
+      .then(data => {
+        setPrivatecontent(data);
+      });
+
+    // 推荐MV
+    PersonalizedService.getPersonalizedMv()
+      .then(data => {
+        setPersonalizedMV(data);
+      });
+
+    // 新歌速递（最新音乐）
+    TopService.getNewMusics({
+      type: regionMap.全部
+    }).then(data => {
+      setNewMusic(data.slice(0, 12));
+    })
   }, []);
 
   // 点击推荐歌单
@@ -103,7 +144,34 @@ const Discover = (props) => {
           </ModuleCard>
           <ModuleCard
             headerTitle="独家放送"
-          ></ModuleCard>
+          >
+            <div className={styles.three_image_box}>
+              {
+                privatecontent.map(item => {
+                  return (
+                    <div key={item.id} className={styles.image} onClick={() => { }}>
+                      <ImageCard imageInfo={item} />
+                    </div>
+                  )
+                })
+              }
+            </div>
+          </ModuleCard>
+          <ModuleCard
+            headerTitle="推荐MV"
+          >
+            <div className={styles.three_image_box} style={{ gridTemplateColumns: `repeat(${personalizedMV.length || 3}, 1fr)` }}>
+              {
+                personalizedMV.map(item => {
+                  return (
+                    <div key={item.id} className={styles.image} onClick={() => { }}>
+                      <ImageCard imageInfo={item} />
+                    </div>
+                  )
+                })
+              }
+            </div>
+          </ModuleCard>
         </div>
       </div>
     </div>

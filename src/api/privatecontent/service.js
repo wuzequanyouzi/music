@@ -1,8 +1,15 @@
 import * as privatecontent from './api.js';
 
+import { privatecontentTranslator } from './translator.js';
+
 export class PrivatecontentService {
+
+  /**
+   * @description 独家放送（入口列表）
+   * @returns
+   */
   static getPrivatecontent() {
-    return privatecontent.getPrivatecontent();
+    return privatecontent.getPrivatecontent().then(privatecontentTranslator);
   }
 
 
@@ -13,6 +20,6 @@ export class PrivatecontentService {
    * @returns
    */
   static getPrivatecontentList(limit, offset) {
-    return privatecontent.getPrivatecontentList({limit, offset});
+    return privatecontent.getPrivatecontentList({ limit, offset });
   }
 }

@@ -9,6 +9,7 @@
     border-radius: 4px;
     overflow: hidden;
     cursor: pointer;
+    position: relative;
     .img {
       width: 100%;
       height: 100%;
@@ -17,11 +18,11 @@
     }
   }
   .icon_container {
-    top: 4px;
-    left: 4px;
+    top: 0;
+    left: 0;
     position: absolute;
-    width: 20em;
-    height: 20em;
+    width: 100%;
+    height: 100%;
     border-radius: 4px;
     pointer-events: none;
   }
