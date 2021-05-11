@@ -1,0 +1,12 @@
+.play_btn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #ec4141;
+  &>i{
+    line-height: 30px;
+    font-size: 30px;
+  }
+}

@@ -1,0 +1,15 @@
+.tag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 4px;
+  &>span {
+    padding: 0 1px;
+    height: 14px;
+    font-size: 12px;
+    line-height: 12px;
+    border-radius: 3px;
+    color: #ec4141;
+    border: 1px solid #ec4141;
+  }
+}

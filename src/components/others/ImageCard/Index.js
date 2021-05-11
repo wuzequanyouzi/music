@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import PlayButton from '@/components/others/PlayButton/Index';
 
 // 样式or图片
 import styles from './ImageCard.module.scss';
@@ -25,9 +26,7 @@ const ImageCard = (props) => {
             <div className={styles.right_top}>{'你叉叉'}</div>
             <div className={styles.left_bottom}>{'你叉叉'}</div>
             <div className={styles.right_bottom}>{'你叉叉'}</div>
-            {showPlayBtn && (<div className={styles.play_btn}>
-              <i className={'iconfont icon-musicplay1'} style={{ fontSize: '30px', color: '#EEE' }}></i>
-            </div>)}
+            {showPlayBtn && (<PlayButton className={styles.play_btn} />)}
           </div>
         </div>
       </div>

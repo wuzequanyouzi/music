@@ -7,6 +7,7 @@ import {
 // 组件
 import Carousel from '@/components/others/Carousel/Index.js';
 import ImageCard from '@/components/others/ImageCard/Index.js';
+import SongItem from '@/components/song/SongItem/Index.js';
 import ModuleCard from '@/components/others/ModuleCard/Index.js';
 
 // 公共
@@ -98,6 +99,7 @@ const Discover = (props) => {
     TopService.getNewMusics({
       type: regionMap.全部
     }).then(data => {
+      console.log(data);
       setNewMusic(data.slice(0, 12));
     })
   }, []);
@@ -151,6 +153,21 @@ const Discover = (props) => {
                   return (
                     <div key={item.id} className={styles.image} onClick={() => { }}>
                       <ImageCard imageInfo={item} />
+                    </div>
+                  )
+                })
+              }
+            </div>
+          </ModuleCard>
+          <ModuleCard
+            headerTitle="最新音乐"
+          >
+            <div className={styles.three_image_box}>
+              {
+                newMusic.map(item => {
+                  return (
+                    <div key={item.id} className={styles.image} onClick={() => { }}>
+                      <SongItem songInfo={item} />
                     </div>
                   )
                 })

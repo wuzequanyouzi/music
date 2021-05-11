@@ -60,7 +60,7 @@
   .three_image_box {
     min-height: 160px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, calc(33.3% - 10px));
     justify-self: center;
     align-self: center;
     grid-column-gap: 14px;
